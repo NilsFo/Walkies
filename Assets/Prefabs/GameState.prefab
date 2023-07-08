@@ -44,3 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f16b3a8d49b77a44900ca4d80637cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetFPS: 60
+  ownerAI: {fileID: 0}
+  ownerPath: {fileID: 0}
+  ownerTargetWaypointIndex: 0
+  waypointReachedDistance: 0.42
+  player: {fileID: 0}
+  playerSnoot: {fileID: 0}
+  musicManager: {fileID: 0}
+  debugTF: {fileID: 0}
+  frenzyTokenThreshold: 2
+  frenzyTokens: 0
+  frenzyTime: 5
+  frenzyTimeCurrent: 0
