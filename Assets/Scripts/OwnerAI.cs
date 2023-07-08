@@ -34,6 +34,7 @@ public class OwnerAI : MonoBehaviour
 
     public Animator ownerAnimator;
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
+    private static readonly int TumbleAnim = Animator.StringToHash("tumble");
 
     private void Awake()
     {
@@ -100,6 +101,7 @@ public class OwnerAI : MonoBehaviour
         }
         
         ownerAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
+        ownerAnimator.SetBool(TumbleAnim, currentWalkingState == WalkerMovementState.Flailing);
     }
 
     private void MovementFlailing()
