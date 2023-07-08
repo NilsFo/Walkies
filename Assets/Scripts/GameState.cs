@@ -9,6 +9,9 @@ public class GameState : MonoBehaviour
     public int ownerTargetWaypointIndex;
     public float waypointReachedDistance = 0.42f;
 
+    [Header("Player")] public PlayerMovementBehaviour player;
+    public DogSnoot playerSnoot;
+
     // Start is called before the first frame update
     void Start()
     {
