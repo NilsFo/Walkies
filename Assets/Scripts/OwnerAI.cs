@@ -159,16 +159,16 @@ public class OwnerAI : MonoBehaviour
                     targetDog.normalized,
                     turnSpeed * Time.deltaTime * 5f,
                     0));
-
-            if (IsDogAnimationLocked())
-            {
-                currentWalkingState = WalkerMovementState.WaitingForDog;
-            }
         }
 
         if (_dogPullCooldownTimer > 0)
         {
             _dogPullCooldownTimer -= Time.deltaTime;
+        }
+        
+        if (IsDogAnimationLocked())
+        {
+            currentWalkingState = WalkerMovementState.WaitingForDog;
         }
     }
 
