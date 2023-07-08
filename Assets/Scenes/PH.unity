@@ -1134,6 +1134,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 216879760295999186, guid: b68fd2bafe9d45b428a3f58ca75011a2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 362072601, guid: f6350488c0e5bd78b89398f9fde092d7, type: 3}
     - target: {fileID: 827548236989912335, guid: b68fd2bafe9d45b428a3f58ca75011a2, type: 3}
       propertyPath: m_Name
       value: Dog
