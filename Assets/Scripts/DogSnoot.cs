@@ -28,9 +28,10 @@ public class DogSnoot : MonoBehaviour
     void Update()
     {
         barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime;
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentInteractable != null)
+            if (currentInteractable != null && !_gameState.IsInFrenzyMode())
             {
                 if (currentInteractable.IsInteractable())
                 {
