@@ -21,6 +21,7 @@ public class OwnerAI : MonoBehaviour
     public float turnSpeed = 1f;
     public float damp = 0.1f;
     public float flailPullForce = 10f;
+    public float flailMaxVelocity = 100f;
     private Vector2 _velocity;
 
     private PlayerMovementBehaviour dog;
@@ -73,6 +74,7 @@ public class OwnerAI : MonoBehaviour
         if (player.LeineStramm() && IsDogFrenzy() && _gameState.playerMovedDuringFrenzy && currentWalkingState == WalkerMovementState.WalkingHere)
         {
             currentWalkingState = WalkerMovementState.Flailing;
+            rb2D.velocity = Vector2.zero;
         }
 
         if (currentWalkingState == WalkerMovementState.Flailing && !IsDogFrenzy())
@@ -115,8 +117,10 @@ public class OwnerAI : MonoBehaviour
         var ownerDelta = player.transform.position - transform.position;
         if (player.LeineStramm())
         {
-            var pullForce = Mathf.Pow(ownerDelta.magnitude - player.lineLength + 1, 2) * flailPullForce;
+            var pullForce = Mathf.Pow(ownerDelta.magnitude - player.lineLength + 1, 2f) * flailPullForce;
             rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
+            rb2D.velocity = Vector2.ClampMagnitude(rb2D.velocity, flailMaxVelocity);
+            Debug.Log(rb2D.velocity.magnitude);
         }
     }
 
@@ -148,7 +152,6 @@ public class OwnerAI : MonoBehaviour
                 targetDirection.normalized,
                 turnSpeed * Time.deltaTime,
                 0));
-        rb2D.MovePosition(myPos + _velocity);
 
         if (dogIsPulling && _dogPullSurpriseTimer > 0)
         {
@@ -159,8 +162,12 @@ public class OwnerAI : MonoBehaviour
                     targetDog.normalized,
                     turnSpeed * Time.deltaTime * 5f,
                     0));
+            _velocity += targetDog.normalized * (Time.deltaTime * 0.5f);
         }
 
+        rb2D.MovePosition(myPos + _velocity);
+        
+        
         if (_dogPullCooldownTimer > 0)
         {
             _dogPullCooldownTimer -= Time.deltaTime;

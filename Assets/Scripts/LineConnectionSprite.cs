@@ -30,9 +30,12 @@ public class LineConnectionSprite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var z = transform.position.z;
         var firstPos = firstObject.transform.position;
         var secondPos = secondObject.transform.position;
-        spriteRenderer.transform.position = (firstPos + secondPos)/2;
+        var pos = (firstPos + secondPos) / 2;
+        pos.z = z;
+        spriteRenderer.transform.position = pos;
         spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, firstPos - secondPos));
         spriteRenderer.size = new Vector2(width, Vector2.Distance(firstPos, secondPos));
     }
