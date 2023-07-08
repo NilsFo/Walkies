@@ -1190,10 +1190,6 @@ PrefabInstance:
       propertyPath: owner
       value: 
       objectReference: {fileID: 7556817344947009024}
-    - target: {fileID: 9162498964016236402, guid: b68fd2bafe9d45b428a3f58ca75011a2, type: 3}
-      propertyPath: ownerTransform
-      value: 
-      objectReference: {fileID: 611412812}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -39,6 +39,9 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public Rigidbody2D rb2D;
 
     public SpriteRenderer dogVisuals;
+    public Animator dogAnimator;
+    private static readonly int VelocityAnim = Animator.StringToHash("velocity");
+
 
     private void Awake()
     {
@@ -54,6 +57,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     }
 
     private void Update()
+
     {
         if (_lastKnownInputState != currentInputState)
         {
@@ -66,6 +70,9 @@ public class PlayerMovementBehaviour : MonoBehaviour
         {
             rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+
+
+        dogAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
     }
 
     private void FixedUpdate()

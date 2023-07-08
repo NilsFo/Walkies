@@ -93,7 +93,7 @@ public class OwnerAI : MonoBehaviour
         Vector2 myPos = transform.position;
         Vector2 target = _gameState.ownerPath.CurrentWayPointTarget();
         Vector2 targetDirection = target - myPos;
-        _velocity *= 1 - damp * Time.deltaTime;
+        _velocity -= _velocity * (damp * Time.deltaTime);
         _velocity += (Vector2)transform.up * (speed * Time.deltaTime);
         transform.rotation = Quaternion.LookRotation(Vector3.forward,
             Vector3.RotateTowards((Vector2)transform.up,
