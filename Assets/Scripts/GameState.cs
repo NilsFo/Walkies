@@ -97,6 +97,16 @@ public class GameState : MonoBehaviour
         frenzyTokens += 1;
     }
 
+    public float GetFrenzyTimeRemainingPercent()
+    {
+        return frenzyTimeCurrent / frenzyTime;
+    }
+
+    public float GetFrenzyTokenProgressPercent()
+    {
+        return (float)frenzyTokens / (float)frenzyTokenThreshold;
+    }
+
     public void OnWaypointReached(int index)
     {
         ownerTargetWaypointIndex = index + 1;

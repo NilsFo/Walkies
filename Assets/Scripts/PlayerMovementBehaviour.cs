@@ -188,12 +188,12 @@ public class PlayerMovementBehaviour : MonoBehaviour
         return ownerDelta.magnitude > lineLength;
     }
 
-    public void PlayLockedAnimation()
+    public void PlayLockedAnimation(int animationID, float lockTime)
     {
-        PlayLockedAnimation(transform.position, transform.position);
+        PlayLockedAnimation(transform.position, transform.position, animationID, lockTime);
     }
 
-    public void PlayLockedAnimation(Vector2 newPosition, Vector2 rotateTowards)
+    public void PlayLockedAnimation(Vector2 newPosition, Vector2 rotateTowards, int animationID, float lockTime)
     {
         // Set position
         Vector3 newPos = new Vector3(newPosition.x, newPosition.y, transform.position.z);
@@ -205,8 +205,8 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         // Set lock
         currentInputState = PlayerInputState.AnimationLocked;
-        dogAnimator.SetTrigger(Sniff);
-        Invoke(nameof(ReleaseAnimationLock), 1.5f);
+        dogAnimator.SetTrigger(animationID);
+        Invoke(nameof(ReleaseAnimationLock), lockTime);
     }
 
     public void ReleaseAnimationLock()

@@ -47,10 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alreadyInteractedWith: 0
   myType: 0
+  animationPlaying: 0
   onInteractedWith:
     m_PersistentCalls:
       m_Calls: []
   interactionSnapDistance: 2
+  showRange: 0
 --- !u!1 &8102987660349302105
 GameObject:
   m_ObjectHideFlags: 0
