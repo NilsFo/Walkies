@@ -45,6 +45,9 @@ public class GameState : MonoBehaviour
 
         ownerTargetWaypointIndex = -1;
         StartWalkies();
+
+        musicManager.Play(0);
+        musicManager.SkipFade();
     }
 
     public void StartWalkies()
@@ -62,6 +65,10 @@ public class GameState : MonoBehaviour
         if (IsInFrenzyMode())
         {
             frenzyTimeCurrent -= Time.deltaTime;
+            if (frenzyTimeCurrent<=0)
+            {
+                OnExitFrenzyMode();
+            }
         }
         else
         {
@@ -80,6 +87,19 @@ public class GameState : MonoBehaviour
     {
         frenzyTimeCurrent = frenzyTime;
         frenzyTokens = 0;
+        OnEnterFrenzyMode();
+    }
+
+    public void OnEnterFrenzyMode()
+    {
+        musicManager.Play(1);
+        musicManager.SkipFade();
+    }
+
+    public void OnExitFrenzyMode()
+    {
+        print("OnFrenzyExit!");
+        musicManager.Play(0);
     }
 
     public bool IsInFrenzyMode()
