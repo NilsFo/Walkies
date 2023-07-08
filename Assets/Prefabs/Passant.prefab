@@ -88,6 +88,7 @@ MonoBehaviour:
   turnSpeed: 3
   damp: 10
   ownerAnimator: {fileID: 5535874089144359244}
+  showRange: 1
 --- !u!50 &4321915558804715263
 Rigidbody2D:
   serializedVersion: 4
@@ -362,6 +363,14 @@ PrefabInstance:
     - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Offset.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833008086911853974, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102987660349302105, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

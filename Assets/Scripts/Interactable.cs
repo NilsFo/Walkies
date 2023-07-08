@@ -18,6 +18,8 @@ public class Interactable : MonoBehaviour
     public bool showRange = false;
     public bool barkAfterwards=false;
 
+    [Header("Debug")] public GameObject focusHighlightVisuals;
+
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
     private static readonly int Sniff = Animator.StringToHash("sniff");
     private static readonly int Sit = Animator.StringToHash("sit");
@@ -64,6 +66,7 @@ public class Interactable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        focusHighlightVisuals.SetActive(false);
     }
 
     public void OnInteractedWith()
@@ -121,9 +124,9 @@ public class Interactable : MonoBehaviour
 #endif
     }
 
-    public float AnimationNameToLength(AnimationName animantionName)
+    public float AnimationNameToLength(AnimationName animationName)
     {
-        switch (animantionName)
+        switch (animationName)
         {
             case AnimationName.Pee:
                 return 2.3f;

@@ -60,11 +60,12 @@ public class MusicManager : MonoBehaviour
 
         _desiredMixingVolumes[index] = 1;
 
-        print("Playing: " + _playList[index].gameObject.name);
-    }
+        if (!_playList[index].isPlaying)
+        {
+            _playList[index].Play();
+        }
 
-    public void PlayNow()
-    {
+        print("Playing: " + _playList[index].gameObject.name);
     }
 
     public void SkipFade()
@@ -121,6 +122,14 @@ public class MusicManager : MonoBehaviour
         {
             audioJail.Remove(releaseKey);
         }
+
+        string pg = "";
+        foreach (var audioSource in _playList)
+        {
+            pg += " - " + audioSource.time;
+        }
+
+        print("Progress: " + pg);
     }
 
     public float GetVolumeMusic()

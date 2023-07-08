@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4168698094595836662}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8326874838135048449
 SpriteRenderer:
@@ -143,7 +143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: interactionSnapDistance
-      value: 2.08
+      value: 1.96
       objectReference: {fileID: 0}
     - target: {fileID: 4009760353431689556, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_RootOrder
@@ -195,11 +195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Size.x
-      value: 3.1766558
+      value: 3.3081753
       objectReference: {fileID: 0}
     - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Size.y
-      value: 3.1766558
+      value: 3.3081753
       objectReference: {fileID: 0}
     - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Offset.x

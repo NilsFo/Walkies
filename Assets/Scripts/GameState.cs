@@ -94,7 +94,7 @@ public class GameState : MonoBehaviour
 
     public void OnEnterFrenzyMode()
     {
-        musicManager.Play(1);
+        musicManager.Play(1, true);
         musicManager.SkipFade();
     }
 

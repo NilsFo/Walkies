@@ -32,6 +32,7 @@ public class PassantAI : MonoBehaviour
     public Animator ownerAnimator;
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
     private static readonly int Pet = Animator.StringToHash("pet");
+    public bool showRange;
 
     private void Awake()
     {
@@ -51,7 +52,6 @@ public class PassantAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // Update States
         if (_lastKnownWalkingState != currentWalkingState)
         {
@@ -68,7 +68,7 @@ public class PassantAI : MonoBehaviour
                 MovementLookAtDog();
                 break;
         }
-        
+
         ownerAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
     }
 
@@ -114,6 +114,7 @@ public class PassantAI : MonoBehaviour
         currentWalkingState = WalkerMovementState.PettingDog;
         ownerAnimator.SetTrigger(Pet);
     }
+
     public void PetDogEnd()
     {
         currentWalkingState = WalkerMovementState.WalkingHere;
@@ -126,4 +127,20 @@ public class PassantAI : MonoBehaviour
         walkTarget.transform.position = temp;
         GetComponentInChildren<Interactable>().alreadyInteractedWith = false;
     }
+
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (showRange)
+        {
+            Debug.DrawLine(transform.position, walkTarget.transform.position);
+
+            if (Application.isPlaying)
+            {
+                Debug.DrawLine(transform.position, initialPos);
+            }
+        }
+    }
+#endif
 }

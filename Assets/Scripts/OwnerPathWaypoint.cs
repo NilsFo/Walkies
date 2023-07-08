@@ -55,7 +55,7 @@ public class OwnerPathWaypoint : MonoBehaviour
 
     public void OnWayPointActiveChange()
     {
-        print("Index " + index + " is now active: " + currentWayPoint);
+        // print("Waypoint-Index " + index + " is now active: " + currentWayPoint);
     }
 
     public bool IsReached()

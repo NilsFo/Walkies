@@ -56,6 +56,14 @@ public class DogSnoot : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.focusHighlightVisuals.SetActive(true);
+        }
+    }
+
     public void RequestBark()
     {
         if (barkCooldownCurrent <= 0)

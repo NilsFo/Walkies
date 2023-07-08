@@ -120,7 +120,6 @@ public class OwnerAI : MonoBehaviour
             var pullForce = Mathf.Pow(ownerDelta.magnitude - player.lineLength + 1, 2f) * flailPullForce;
             rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
             rb2D.velocity = Vector2.ClampMagnitude(rb2D.velocity, flailMaxVelocity);
-            Debug.Log(rb2D.velocity.magnitude);
         }
     }
 

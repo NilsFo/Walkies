@@ -49,11 +49,22 @@ public class ObjectiveBar : MonoBehaviour
         }
         else
         {
-            textfield.text = "Frenzy in: " + _gameState.frenzyTokens + "/" + _gameState.frenzyTokenThreshold;
+            fillImage.color = colorCharging;
+            textfield.text = ""; //"Frenzy in: " + _gameState.frenzyTokens + "/" + _gameState.frenzyTokenThreshold;
             fillDesired = _gameState.GetFrenzyTokenProgressPercent();
         }
 
-        fillCurrent = Mathf.Lerp(fillCurrent, fillDesired, Time.deltaTime);
+        if (fillCurrent < fillDesired)
+        {
+            fillCurrent = fillCurrent + fillSpeed * Time.deltaTime;
+        }
+
+        if (fillCurrent > fillDesired)
+        {
+            fillCurrent = fillCurrent - fillSpeed * Time.deltaTime;
+        }
+
+        fillCurrent = Math.Clamp(fillCurrent, 0.0f, 1.0f);
         slider.value = fillCurrent;
     }
 

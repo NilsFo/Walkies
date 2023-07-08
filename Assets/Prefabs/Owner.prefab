@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5147806686142275955}
   - component: {fileID: 8943395765708115758}
   - component: {fileID: 3738885285403586926}
+  - component: {fileID: 1131554094918046031}
   m_Layer: 0
   m_Name: Owner
   m_TagString: Untagged
@@ -158,6 +159,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1131554094918046031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537279348880341634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785eaa5471178ff468eb95c7b9beda89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetName: dude_walk
+  footstepClips:
+  - {fileID: 8300000, guid: 3a18e58e4c82f4b47a529aec37a7f44c, type: 3}
+  - {fileID: 8300000, guid: df307dc0a5f036849a706f29a028d147, type: 3}
+  - {fileID: 8300000, guid: 0402b019f24d2034f9fef6a354374239, type: 3}
+  - {fileID: 8300000, guid: 25fd05ac03d9e7d48a9cb9fba1be926d, type: 3}
+  - {fileID: 8300000, guid: 078ea05c84f75d84a8333a11d7c0e704, type: 3}
+  - {fileID: 8300000, guid: 5aefb4509827e664381ab3ac721311d1, type: 3}
+  - {fileID: 8300000, guid: 1ae8e45a53e998641b9967a55ece5668, type: 3}
+  - {fileID: 8300000, guid: 175ce3f168c4fd541a104be8a4d29e9c, type: 3}
+  - {fileID: 8300000, guid: 61de021b1d3728843b93eabc89c0e53a, type: 3}
+  - {fileID: 8300000, guid: 1a640bcc94a9bf642a927548c085e34a, type: 3}
+  - {fileID: 8300000, guid: 6d17c822de74c6741b3fb253e9664a23, type: 3}
+  - {fileID: 8300000, guid: bf6c8334e504ae149a5d83a90fe6d58e, type: 3}
+  currentAnimFrame: 0
+  m_Animator: {fileID: 3738885285403586926}
+  leftFootProgress: 2
+  rightFootProgress: 6
 --- !u!1 &3954395681507496821
 GameObject:
   m_ObjectHideFlags: 0
