@@ -32,6 +32,10 @@ public class OwnerAI : MonoBehaviour
 
     private Rigidbody2D rb2D;
 
+    public Animator ownerAnimator;
+    private static readonly int VelocityAnim = Animator.StringToHash("velocity");
+    private static readonly int TumbleAnim = Animator.StringToHash("tumble");
+
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
@@ -95,6 +99,9 @@ public class OwnerAI : MonoBehaviour
                 MovementFlailing();
                 break;
         }
+        
+        ownerAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
+        ownerAnimator.SetBool(TumbleAnim, currentWalkingState == WalkerMovementState.Flailing);
     }
 
     private void MovementFlailing()
