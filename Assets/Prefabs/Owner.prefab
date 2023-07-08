@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWalkingState: 0
-  speed: 0.05
+  speed: 0
   turnSpeed: 2
   damp: 0.05
   dogIsPulling: 0

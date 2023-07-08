@@ -58,6 +58,9 @@ public class Interactable : MonoBehaviour
 
         _gameState.InteractionsCount[myType] += 1;
         print("Interactions with '" + myType + "' is now: " + _gameState.InteractionsCount[myType]);
+        
+        // Play animation
+        _gameState.player.PlayLockedAnimation(GetCurrentSnapPoint(),transform.position);
     }
 
     public bool IsInteractable()
