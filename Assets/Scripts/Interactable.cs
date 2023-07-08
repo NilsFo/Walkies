@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour
     public AnimationName animationPlaying;
     private GameState _gameState;
     public UnityEvent onInteractedWith;
+    public UnityEvent onInteractionEnd;
 
     [Header("Interactions")] public float interactionSnapDistance = 1.0f;
     public bool showRange = false;
@@ -44,7 +45,7 @@ public class Interactable : MonoBehaviour
     {
         _gameState = FindObjectOfType<GameState>();
         alreadyInteractedWith = false;
-        if (onInteractedWith != null)
+        if (onInteractedWith == null)
         {
             onInteractedWith = new UnityEvent();
         }
@@ -78,14 +79,21 @@ public class Interactable : MonoBehaviour
         _gameState.InteractionsCount[myType] += 1;
         print("Interactions with '" + myType + "' is now: " + _gameState.InteractionsCount[myType]);
 
+        float lockTime = AnimationNameToLength(animationPlaying);
         // Play animation
         _gameState.player.PlayLockedAnimation(GetCurrentSnapPoint(),
             transform.position,
             AnimationNameToID(animationPlaying),
-            AnimationNameToLength(animationPlaying));
+            lockTime);
 
+        Invoke(nameof(OnInteractionEnd), lockTime);
         // Add frenzy point
         _gameState.AddFrenzyPoint();
+    }
+
+    public void OnInteractionEnd()
+    {
+        onInteractionEnd.Invoke();
     }
 
     public bool IsInteractable()
