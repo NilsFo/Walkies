@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5900106329945165195}
   - component: {fileID: 8856898411520928970}
   - component: {fileID: 5147806686142275955}
+  - component: {fileID: 8943395765708115758}
   m_Layer: 0
   m_Name: Owner
   m_TagString: Untagged
@@ -97,3 +98,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08c2e198a295ca42937a9dc74ef8ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
+  turnSpeed: 2
+  damp: 0.1
+  dog: {fileID: 0}
+  dogIsPulling: 0
+  dogPullSurpriseTime: 0.5
+  dogPullCooldownTime: 5
+--- !u!50 &8943395765708115758
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537279348880341634}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
