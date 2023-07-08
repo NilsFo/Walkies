@@ -121,7 +121,9 @@ public class PassantAI : MonoBehaviour
 
     private void Reset()
     {
-        transform.position = initialPos;
+        var temp = initialPos;
+        initialPos = walkTarget.position;
+        walkTarget.transform.position = temp;
         GetComponent<Interactable>().alreadyInteractedWith = false;
     }
 }
