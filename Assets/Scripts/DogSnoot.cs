@@ -11,6 +11,7 @@ public class DogSnoot : MonoBehaviour
     public List<AudioClip> barks;
     public float barkCooldown = 2f;
     public float barkCooldownCurrent = 0f;
+    private static readonly int Sniff = Animator.StringToHash("sniff");
 
     private void Awake()
     {
@@ -27,9 +28,10 @@ public class DogSnoot : MonoBehaviour
     void Update()
     {
         barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime;
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentInteractable != null)
+            if (currentInteractable != null && !_gameState.IsInFrenzyMode())
             {
                 if (currentInteractable.IsInteractable())
                 {
