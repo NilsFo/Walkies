@@ -16,40 +16,63 @@ public class MusicManager : MonoBehaviour
     [Range(0, 1)] public float levelVolumeMult = 1.0f;
 
     private AudioListener _listener;
-    public AudioSource song;
-    private List<AudioSource> playList;
+    public List<AudioSource> initiallyKnownSongs;
+
+    private List<AudioSource> _playList;
+    public List<int> _desiredMixingVolumes;
+    public float musicChangeSpeed = 1;
+
     private Dictionary<string, float> audioJail;
 
     private void Awake()
     {
-        playList = new List<AudioSource>();
-        if (song != null)
+        _playList = new List<AudioSource>();
+        foreach (AudioSource song in initiallyKnownSongs)
         {
-            playList.Add(song);
+            _playList.Add(song);
+            song.Play();
+            song.volume = 0;
+            _desiredMixingVolumes.Add(0);
         }
 
+        SkipFade();
+
         _listener = FindObjectOfType<AudioListener>();
+        audioJail = new Dictionary<string, float>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        audioJail = new Dictionary<string, float>();
     }
 
-    private void Play(int i)
+    public void Play(int index, bool fromBeginning = false)
     {
-        foreach (AudioSource audioSource in playList)
+        for (var i = 0; i < _playList.Count; i++)
         {
-            audioSource.Stop();
+            _desiredMixingVolumes[i] = 0;
         }
 
-        playList[i].Play();
+        if (fromBeginning)
+        {
+            _playList[index].time = 0;
+        }
+
+        _desiredMixingVolumes[index] = 1;
+
+        print("Playing: " + _playList[index].gameObject.name);
     }
 
-    public void PlaySongLoop()
+    public void PlayNow()
     {
-        Play(0);
+    }
+
+    public void SkipFade()
+    {
+        for (var i = 0; i < _playList.Count; i++)
+        {
+            _playList[i].volume = _desiredMixingVolumes[i] * GetVolumeMusic() * levelVolumeMult;
+        }
     }
 
     // Update is called once per frame
@@ -59,9 +82,21 @@ public class MusicManager : MonoBehaviour
         transform.position = _listener.transform.position;
         userDesiredSoundVolume = MathF.Min(userDesiredMusicVolume * 1.0f, 1.0f);
 
-        foreach (var audioSource in playList)
+        for (var i = 0; i < _playList.Count; i++)
         {
-            audioSource.volume = GetVolumeMusic() * levelVolumeMult;
+            var audioSource = _playList[i];
+            var volumeMixing = _desiredMixingVolumes[i];
+
+            var trueVolume = Mathf.Lerp(audioSource.volume,
+                volumeMixing * GetVolumeMusic() * levelVolumeMult,
+                Time.deltaTime * musicChangeSpeed);
+
+            if (trueVolume - Time.deltaTime * musicChangeSpeed <= 0 && volumeMixing == 0)
+            {
+                trueVolume = 0;
+            }
+
+            audioSource.volume = trueVolume;
         }
 
         var keys = audioJail.Keys.ToArrayPooled().ToList();
