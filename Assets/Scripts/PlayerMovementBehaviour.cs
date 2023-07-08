@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,12 +30,19 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public Rigidbody2D rb2D;
 
     public SpriteRenderer dogVisuals;
+    public Animator dogAnimator;
+    private static readonly int VelocityAnim = Animator.StringToHash("velocity");
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    private void Update()
+    {
+        dogAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
     }
 
     private void FixedUpdate()
