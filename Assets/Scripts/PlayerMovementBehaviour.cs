@@ -42,6 +42,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public SpriteRenderer dogVisuals;
     public Animator dogAnimator;
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
+    private static readonly int Sniff = Animator.StringToHash("sniff");
 
 
     private void Awake()
@@ -204,11 +205,13 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         // Set lock
         currentInputState = PlayerInputState.AnimationLocked;
-        Invoke(nameof(ReleaseAnimationLock), 2f);
+        dogAnimator.SetTrigger(Sniff);
+        Invoke(nameof(ReleaseAnimationLock), 1.5f);
     }
 
     public void ReleaseAnimationLock()
     {
         currentInputState = PlayerInputState.InControl;
+        dogAnimator.ResetTrigger(Sniff);
     }
 }
