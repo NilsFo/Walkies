@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentInputState: 0
-  speed: 6
+  speed: 36
   dashMod: 5
   dashDuration: 2
   movementCooldown: 0

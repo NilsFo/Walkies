@@ -22,6 +22,7 @@ public class GameState : MonoBehaviour
 
     [Header("FrenzyCounter")] public int frenzyTokenThreshold = 2;
     public int frenzyTokens = 0;
+    public float frenzySpeedMult = 2.0f;
 
     public float frenzyTime = 5;
     public float frenzyTimeCurrent = 0;
