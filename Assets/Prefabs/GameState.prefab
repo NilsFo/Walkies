@@ -55,6 +55,9 @@ MonoBehaviour:
   debugTF: {fileID: 0}
   frenzyTokenThreshold: 4
   frenzyTokens: 0
+  frenzySpeedMult: 1.5
   frenzyTime: 10
   frenzyTimeCurrent: 0
   playerMovedDuringFrenzy: 0
+  bonesCollectedCount: 0
+  bonesCollectedTarget: 0

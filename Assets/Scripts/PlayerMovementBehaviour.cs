@@ -101,6 +101,11 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         var modSpeed = speed;
+        if (_gameState.IsInFrenzyMode())
+        {
+            modSpeed *= _gameState.frenzySpeedMult;
+        }
+        
         if (_dashTime > 0)
         {
             modSpeed *= dashMod;
@@ -161,7 +166,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             moveInput = Vector2.zero;
         }
 
-        rb2D.AddForce(moveInput * modSpeed);
+        rb2D.AddForce(moveInput);
         _velocity = rb2D.velocity;
         //movementAnimator.velocity = _velocity;
         if (_velocity.sqrMagnitude != 0)
