@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 8263934793835722939}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8856898411520928970
 SpriteRenderer:
@@ -105,6 +105,7 @@ MonoBehaviour:
   turnSpeed: 3
   damp: 10
   flailPullForce: 1250
+  flailMaxVelocity: 10
   dogIsPulling: 0
   dogPullSurpriseTime: 0.5
   dogPullCooldownTime: 3
