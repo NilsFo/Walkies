@@ -7,15 +7,17 @@ using UnityEngine.UI;
 
 public class ObjectiveBar : MonoBehaviour
 {
-    public Color colorWorm, colorPupa, colorButterfly;
-    public Sprite iconWorm, iconPupa, iconButterfly;
-    public AnimationCurve butterflyDistanceMultCurve;
+    public Color colorCharging, frenzyAvailable, frenzyDrain;
     public Slider slider;
     public TextMeshProUGUI textfield;
     public Image fillImage;
     public Image iconImage;
 
     private GameState _gameState;
+
+    public float fillSpeed = 1.1337f;
+    public float fillDesired = 0f;
+    public float fillCurrent = 0f;
 
     private void Awake()
     {
@@ -25,55 +27,34 @@ public class ObjectiveBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fillDesired = 0f;
+        fillCurrent = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // float p = 0;
-        // switch (_gameState.evolveState)
-        // {
-        //     case GameState.EvolveState.Butterfly:
-        //         textfield.text = "Find Flower!";
-        //         float maxDist = _gameState.butterflyFlowerMaxDistance;
-        //         p = GetPercentage(_gameState.PlayerDistanceToFlower(), _gameState.butterflyFlowerMaxDistance);
-        //         p = 1.0f - p;
-        //         p = Math.Clamp(p, 0.0f, 1.0f);
-        //         p = butterflyDistanceMultCurve.Evaluate(p);
-        //         if (_gameState.playerState == GameState.PlayerState.Win)
-        //         {
-        //             p = 1.0f;
-        //         }
-        //         slider.value = p;
-        //         fillImage.color = colorButterfly;
-        //         iconImage.sprite = iconButterfly;
-        //         break;
-        //     case GameState.EvolveState.Caterpillar:
-        //         textfield.text = _gameState.foodCurrent + "/" + _gameState.foodTarget;
-        //         p = GetPercentage(_gameState.foodCurrent, _gameState.foodTarget);
-        //         slider.value = p;
-        //         fillImage.color = colorWorm;
-        //         iconImage.sprite = iconWorm;
-        //         break;
-        //     case GameState.EvolveState.Pupa:
-        //         textfield.text = "Mash [E]!";
-        //         slider.value = GetPercentage(_gameState.pupaEvolveCurrent, _gameState.pupaEvolveTarget);
-        //         fillImage.color = colorPupa;
-        //         iconImage.sprite = iconPupa;
-        //         break;
-        //     case GameState.EvolveState.Unknown:
-        //         slider.value = 0;
-        //         break;
-        //     default:
-        //         textfield.text = "UNKNOWN";
-        //         slider.value = 0;
-        //         Debug.LogError("Unknown state!");
-        //         break;
-        // }
-        // if (_gameState.playerState == GameState.PlayerState.Lost)
-        // {
-        //     slider.value = 0.0f;
-        // }
+        if (_gameState.IsInFrenzyMode())
+        {
+            textfield.text = "";
+            fillImage.color = frenzyDrain;
+            fillDesired = _gameState.GetFrenzyTimeRemainingPercent();
+            fillCurrent = fillDesired;
+        }
+        else if (_gameState.FrenzyAvailable())
+        {
+            textfield.text = "[SPACEBAR]";
+            fillImage.color = frenzyAvailable;
+            fillDesired = 1f;
+        }
+        else
+        {
+            textfield.text = "Frenzy in: " + _gameState.frenzyTokens + "/" + _gameState.frenzyTokenThreshold;
+            fillDesired = _gameState.GetFrenzyTokenProgressPercent();
+        }
+
+        fillCurrent = Mathf.Lerp(fillCurrent, fillDesired, Time.deltaTime);
+        slider.value = fillCurrent;
     }
 
     private float GetPercentage(int a, int b)
