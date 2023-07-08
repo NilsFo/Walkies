@@ -34,7 +34,7 @@ public class CollectibleBone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        PlayerMovementBehaviour player = col.GetComponent<PlayerMovementBehaviour>();
+        PlayerMovementBehaviour player = col.GetComponentInParent<PlayerMovementBehaviour>();
         if (player != null)
         {
             Collect();
