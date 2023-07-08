@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour
 
     [Header("Interactions")] public float interactionSnapDistance = 1.0f;
     public bool showRange = false;
-
+    public bool barkAfterwards=false;
 
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
     private static readonly int Sniff = Animator.StringToHash("sniff");
@@ -94,6 +94,10 @@ public class Interactable : MonoBehaviour
     public void OnInteractionEnd()
     {
         onInteractionEnd.Invoke();
+        if (barkAfterwards)
+        {
+            RequestBark();
+        }
     }
 
     public bool IsInteractable()
@@ -155,4 +159,10 @@ public class Interactable : MonoBehaviour
         Vector3 newPos = transform.position + (dogPos - transform.position).normalized * interactionSnapDistance;
         return newPos;
     }
+
+    public void RequestBark()
+    {
+        _gameState.playerSnoot.RequestBark();
+    }
+    
 }

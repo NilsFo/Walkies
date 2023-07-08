@@ -236,6 +236,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: barkAfterwards
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: animationPlaying
       value: 1
       objectReference: {fileID: 0}

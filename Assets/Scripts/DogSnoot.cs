@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DogSnoot : MonoBehaviour
 {
@@ -27,8 +28,14 @@ public class DogSnoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime;
-        
+        float cooldownMult = 1.0f;
+        if (_gameState.IsInFrenzyMode())
+        {
+            cooldownMult = 2.5f;
+        }
+
+        barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime * cooldownMult;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (currentInteractable != null && !_gameState.IsInFrenzyMode())
@@ -53,7 +60,9 @@ public class DogSnoot : MonoBehaviour
     {
         if (barkCooldownCurrent <= 0)
         {
-            AudioClip bark = barks[0];
+            int i = Random.Range(0, barks.Count);
+            AudioClip bark = barks[i];
+
             _gameState.musicManager.CreateAudioClip(bark, transform.position);
             barkCooldownCurrent = barkCooldown;
         }
