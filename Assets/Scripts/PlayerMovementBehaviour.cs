@@ -9,6 +9,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         Disabled,
         InControl,
+        Frenzy,
         AnimationLocked
     }
 
@@ -57,7 +58,6 @@ public class PlayerMovementBehaviour : MonoBehaviour
     }
 
     private void Update()
-
     {
         if (_lastKnownInputState != currentInputState)
         {
@@ -71,8 +71,30 @@ public class PlayerMovementBehaviour : MonoBehaviour
             rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
-
         dogAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
+
+        // Frenzy Mode?
+        if (Input.GetKeyDown(KeyCode.Space) && currentInputState != PlayerInputState.AnimationLocked)
+        {
+            if (_gameState.FrenzyAvailable())
+            {
+                _gameState.EnterFrenzyMode();
+            }
+            else
+            {
+                _gameState.playerSnoot.RequestBark();
+            }
+        }
+
+        if (_gameState.IsInFrenzyMode() && currentInputState == PlayerInputState.InControl)
+        {
+            currentInputState = PlayerInputState.Frenzy;
+        }
+
+        if (!_gameState.IsInFrenzyMode() && currentInputState == PlayerInputState.Frenzy)
+        {
+            currentInputState = PlayerInputState.InControl;
+        }
     }
 
     private void FixedUpdate()
@@ -83,17 +105,55 @@ public class PlayerMovementBehaviour : MonoBehaviour
             modSpeed *= dashMod;
         }
 
-        bool movementBlocked = currentInputState != PlayerInputState.InControl;
+        bool movementBlocked = true;
+        if (currentInputState == PlayerInputState.InControl)
+        {
+            movementBlocked = false;
+        }
+
+        if (currentInputState == PlayerInputState.Frenzy)
+        {
+            movementBlocked = false;
+        }
+
         float x = 0;
         float y = 0;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
             y += 1;
+            if (_gameState.IsInFrenzyMode())
+            {
+                _gameState.playerMovedDuringFrenzy = true;
+            }
+        }
+
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
             y -= 1;
+            if (_gameState.IsInFrenzyMode())
+            {
+                _gameState.playerMovedDuringFrenzy = true;
+            }
+        }
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
             x -= 1;
+            if (_gameState.IsInFrenzyMode())
+            {
+                _gameState.playerMovedDuringFrenzy = true;
+            }
+        }
+
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
             x += 1;
+            if (_gameState.IsInFrenzyMode())
+            {
+                _gameState.playerMovedDuringFrenzy = true;
+            }
+        }
+
         var moveInput = new Vector2(x, y).normalized * modSpeed;
         if (movementBlocked)
         {
@@ -108,8 +168,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
                 Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
 
         var ownerDelta = owner.transform.position - transform.position;
-
-        if (ownerDelta.magnitude > lineLength)
+        if (LeineStramm() && currentInputState != PlayerInputState.Frenzy)
         {
             // Leine einholen
             var pullForce = Mathf.Pow(ownerDelta.magnitude - lineLength + 1, 2) * linePullForce;
@@ -120,6 +179,12 @@ public class PlayerMovementBehaviour : MonoBehaviour
         {
             owner.DogStopPull();
         }
+    }
+
+    public bool LeineStramm()
+    {
+        var ownerDelta = owner.transform.position - transform.position;
+        return ownerDelta.magnitude > lineLength;
     }
 
     public void PlayLockedAnimation()
@@ -135,8 +200,8 @@ public class PlayerMovementBehaviour : MonoBehaviour
         transform.position = newPos;
 
         // Set Rotation
-        dogVisuals.transform.rotation = Quaternion.LookRotation(Vector3.forward,(targetPos-newPos).normalized);
-        
+        dogVisuals.transform.rotation = Quaternion.LookRotation(Vector3.forward, (targetPos - newPos).normalized);
+
         // Set lock
         currentInputState = PlayerInputState.AnimationLocked;
         Invoke(nameof(ReleaseAnimationLock), 2f);

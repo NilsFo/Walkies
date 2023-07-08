@@ -61,6 +61,9 @@ public class Interactable : MonoBehaviour
         
         // Play animation
         _gameState.player.PlayLockedAnimation(GetCurrentSnapPoint(),transform.position);
+        
+        // Add frenzy point
+        _gameState.AddFrenzyPoint();
     }
 
     public bool IsInteractable()

@@ -33,7 +33,7 @@ Transform:
   - {fileID: 2711447894679376260}
   - {fileID: 3303708015048186739}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9162498964016236402
 MonoBehaviour:
@@ -47,14 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4620f75513843cc8a3e929ac5d09ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentInputState: 0
   speed: 6
   dashMod: 5
   dashDuration: 2
   movementCooldown: 0
   lineLength: 3
   linePullForce: 500
-  gameState: {fileID: 0}
-  owner: {fileID: 0}
   rb2D: {fileID: 7718632338018766684}
   dogVisuals: {fileID: 216879760295999186}
   dogAnimator: {fileID: 5957209448796364845}
@@ -219,6 +218,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentInteractable: {fileID: 0}
+  barks:
+  - {fileID: 8300000, guid: cfa56c36702133a4bbd702a39fc0f41e, type: 3}
+  - {fileID: 8300000, guid: c4fbe774200eca84e8706e67b8ecef01, type: 3}
+  - {fileID: 8300000, guid: 594fe49d1ef1d2447ac3d3dff433c935, type: 3}
+  - {fileID: 8300000, guid: d2022d94ed8cc2d4a94091c9b8df2d8e, type: 3}
+  barkCooldown: 1.337
+  barkCooldownCurrent: 0
 --- !u!1 &3992784492952254317
 GameObject:
   m_ObjectHideFlags: 0
