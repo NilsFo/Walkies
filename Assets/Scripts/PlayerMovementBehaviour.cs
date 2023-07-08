@@ -1,9 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementBehaviour : MonoBehaviour
 {
+    
+    public enum PlayerInputState
+    {
+        Disabled,
+        InControl,
+        AnimationLocked
+    }
+
+    public PlayerInputState currentInputState;
+    private PlayerInputState _lastKnownInputState;
     
     [SerializeField] private float speed = 10;
     
@@ -23,36 +34,51 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public float lineLength = 5f;
     public float linePullForce = 5f;
     
-    public GameState gameState;
-    public OwnerAI owner;
+    private GameState _gameState;
+    private OwnerAI owner;
 
     public Rigidbody2D rb2D;
 
     public SpriteRenderer dogVisuals;
 
-    
+    private void Awake()
+    {
+        currentInputState = PlayerInputState.InControl;
+        _lastKnownInputState = currentInputState;
+        _gameState = FindObjectOfType<GameState>();
+        owner = _gameState.ownerAI;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void Update()
+    {
+        if (_lastKnownInputState != currentInputState)
+        {
+            _lastKnownInputState = currentInputState;
+            print("New Dog input state: "+currentInputState);
+        }
+
+        rb2D.constraints = RigidbodyConstraints2D.None;
+        if (currentInputState == PlayerInputState.AnimationLocked)
+        {
+            rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
     private void FixedUpdate()
     {
-
         var modSpeed = speed;
         if (_dashTime > 0)
         {
             modSpeed *= dashMod;
         }
 
-        bool movementBlocked = false;
-        // Check if movement is on cooldown
-        if (movementCooldown > 0)
-        {
-            movementBlocked = true;
-            movementCooldown -= Time.deltaTime;
-        }
+        bool movementBlocked = currentInputState != PlayerInputState.InControl;
         float x = 0;
         float y = 0;
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
