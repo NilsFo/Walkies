@@ -6,28 +6,56 @@ using UnityEngine;
 public class DogSnoot : MonoBehaviour
 {
     public Interactable currentInteractable;
+    private GameState _gameState;
+
+    public List<AudioClip> barks;
+    public float barkCooldown = 2f;
+    public float barkCooldownCurrent = 0f;
+    private static readonly int Sniff = Animator.StringToHash("sniff");
+
+    private void Awake()
+    {
+        _gameState = FindObjectOfType<GameState>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        barkCooldownCurrent = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentInteractable != null)
+        barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime;
+        
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentInteractable.IsInteractable())
+            if (currentInteractable != null && !_gameState.IsInFrenzyMode())
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (currentInteractable.IsInteractable())
                 {
                     Interact();
+                }
+                else
+                {
+                    currentInteractable = null;
                 }
             }
             else
             {
-                currentInteractable = null;
+                RequestBark();
             }
+        }
+    }
+
+    public void RequestBark()
+    {
+        if (barkCooldownCurrent <= 0)
+        {
+            AudioClip bark = barks[0];
+            _gameState.musicManager.CreateAudioClip(bark, transform.position);
+            barkCooldownCurrent = barkCooldown;
         }
     }
 

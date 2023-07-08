@@ -20,6 +20,7 @@ public class OwnerAI : MonoBehaviour
     public float speed = 1f;
     public float turnSpeed = 1f;
     public float damp = 0.1f;
+    public float flailPullForce = 10f;
     private Vector2 _velocity;
 
     private PlayerMovementBehaviour dog;
@@ -53,9 +54,31 @@ public class OwnerAI : MonoBehaviour
         return dog.currentInputState == PlayerMovementBehaviour.PlayerInputState.AnimationLocked;
     }
 
+    private bool IsDogFrenzy()
+    {
+        return dog.currentInputState == PlayerMovementBehaviour.PlayerInputState.Frenzy;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        // Stop waiting, if released
+        if (!IsDogAnimationLocked() && currentWalkingState == WalkerMovementState.WaitingForDog)
+        {
+            currentWalkingState = WalkerMovementState.WalkingHere;
+        }
+
+        PlayerMovementBehaviour player = _gameState.player;
+        if (player.LeineStramm() && IsDogFrenzy() && _gameState.playerMovedDuringFrenzy && currentWalkingState == WalkerMovementState.WalkingHere)
+        {
+            currentWalkingState = WalkerMovementState.Flailing;
+        }
+
+        if (currentWalkingState == WalkerMovementState.Flailing && !IsDogFrenzy())
+        {
+            currentWalkingState = WalkerMovementState.WalkingHere;
+        }
+
         // Update States
         if (_lastKnownWalkingState != currentWalkingState)
         {
@@ -72,15 +95,32 @@ public class OwnerAI : MonoBehaviour
                 MovementLookAtDog();
                 break;
             case WalkerMovementState.Flailing:
-                // TODO implement
+                MovementFlailing();
                 break;
         }
         
         ownerAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
     }
 
+    private void MovementFlailing()
+    {
+        rb2D.bodyType = RigidbodyType2D.Dynamic;
+        Vector2 myPos = transform.position;
+        _velocity -= _velocity * (damp * Time.deltaTime);
+        // rb2D.MovePosition(myPos + _velocity);
+
+        PlayerMovementBehaviour player = _gameState.player;
+        var ownerDelta = player.transform.position - transform.position;
+        if (player.LeineStramm())
+        {
+            var pullForce = Mathf.Pow(ownerDelta.magnitude - player.lineLength + 1, 2) * flailPullForce;
+            rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
+        }
+    }
+
     private void MovementLookAtDog()
     {
+        rb2D.bodyType = RigidbodyType2D.Kinematic;
         Vector2 myPos = transform.position;
         Vector2 targetDog = (Vector2)dog.transform.position - myPos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward,
@@ -89,12 +129,13 @@ public class OwnerAI : MonoBehaviour
                 turnSpeed * Time.deltaTime,
                 0));
 
-        // _velocity *= 1-damp*Time.deltaTime;
-        // rb2D.MovePosition(myPos + _velocity);
+        _velocity -= _velocity * (damp * Time.deltaTime);
+        rb2D.MovePosition(myPos + _velocity);
     }
 
     private void MovementWalkingHere()
     {
+        rb2D.bodyType = RigidbodyType2D.Kinematic;
         Vector2 myPos = transform.position;
         Vector2 target = _gameState.ownerPath.CurrentWayPointTarget();
         Vector2 targetDirection = target - myPos;
