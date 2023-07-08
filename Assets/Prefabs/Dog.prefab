@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6720050517964807265}
   - component: {fileID: 9162498964016236402}
   - component: {fileID: 7718632338018766684}
-  - component: {fileID: 8025701310330984304}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Untagged
@@ -85,41 +84,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &8025701310330984304
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827548236989912335}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.11713886}
-  m_Size: {x: 0.5, y: 1.0137806}
-  m_Direction: 0
 --- !u!1 &3187331266081675724
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7116906443233047326}
   - component: {fileID: 4542713700743647655}
-  - component: {fileID: 8724551386274107114}
   - component: {fileID: 1438877601308210245}
+  - component: {fileID: 4522293531223928388}
   m_Layer: 0
   m_Name: Snoot
   m_TagString: Untagged
@@ -206,8 +170,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8724551386274107114
-CircleCollider2D:
+--- !u!114 &1438877601308210245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187331266081675724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961553c15ab1ddf4390ba96d82f94337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentInteractable: {fileID: 0}
+  barks:
+  - {fileID: 8300000, guid: cfa56c36702133a4bbd702a39fc0f41e, type: 3}
+  - {fileID: 8300000, guid: c4fbe774200eca84e8706e67b8ecef01, type: 3}
+  - {fileID: 8300000, guid: 594fe49d1ef1d2447ac3d3dff433c935, type: 3}
+  - {fileID: 8300000, guid: d2022d94ed8cc2d4a94091c9b8df2d8e, type: 3}
+  barkCooldown: 1.337
+  barkCooldownCurrent: 0
+--- !u!70 &4522293531223928388
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -238,29 +222,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.000000059604645}
-  serializedVersion: 2
-  m_Radius: 0.099999994
---- !u!114 &1438877601308210245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3187331266081675724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 961553c15ab1ddf4390ba96d82f94337, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentInteractable: {fileID: 0}
-  barks:
-  - {fileID: 8300000, guid: cfa56c36702133a4bbd702a39fc0f41e, type: 3}
-  - {fileID: 8300000, guid: c4fbe774200eca84e8706e67b8ecef01, type: 3}
-  - {fileID: 8300000, guid: 594fe49d1ef1d2447ac3d3dff433c935, type: 3}
-  - {fileID: 8300000, guid: d2022d94ed8cc2d4a94091c9b8df2d8e, type: 3}
-  barkCooldown: 1.337
-  barkCooldownCurrent: 0
+  m_Offset: {x: -0.0011658669, y: -0.29196298}
+  m_Size: {x: 0.19533825, y: 0.98392606}
+  m_Direction: 0
 --- !u!1 &3992784492952254317
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +236,7 @@ GameObject:
   - component: {fileID: 2711447894679376260}
   - component: {fileID: 216879760295999186}
   - component: {fileID: 5957209448796364845}
+  - component: {fileID: 9028424146019129728}
   m_Layer: 0
   m_Name: Viz
   m_TagString: Untagged
@@ -368,6 +333,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &9028424146019129728
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992784492952254317}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.39906746
 --- !u!1 &7643068019400387707
 GameObject:
   m_ObjectHideFlags: 0

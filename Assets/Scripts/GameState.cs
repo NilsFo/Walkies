@@ -81,10 +81,7 @@ public class GameState : MonoBehaviour
         }
 
         // Updating debug text
-        debugTF.text = "Frenzy tokens: " + frenzyTokens + "/" + frenzyTokenThreshold + "\n" +
-                       "Frenzy time: " + frenzyTimeCurrent + "\n" +
-                       "Frenzy available: " + FrenzyAvailable()
-            ;
+        debugTF.text = "Bones: " + bonesCollectedCount + "/" + bonesCollectedTarget;
     }
 
     public void EnterFrenzyMode()
