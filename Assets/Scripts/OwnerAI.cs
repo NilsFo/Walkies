@@ -31,6 +31,9 @@ public class OwnerAI : MonoBehaviour
 
     private Rigidbody2D rb2D;
 
+    public Animator ownerAnimator;
+    private static readonly int VelocityAnim = Animator.StringToHash("velocity");
+
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
@@ -72,6 +75,8 @@ public class OwnerAI : MonoBehaviour
                 // TODO implement
                 break;
         }
+        
+        ownerAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
     }
 
     private void MovementLookAtDog()

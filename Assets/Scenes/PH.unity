@@ -1233,10 +1233,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Owner
       objectReference: {fileID: 0}
-    - target: {fileID: 5147806686142275955, guid: 5364b312625e6774f925a7da87546e18, type: 3}
-      propertyPath: dog
-      value: 
-      objectReference: {fileID: 3633855135995590777}
     - target: {fileID: 5900106329945165195, guid: 5364b312625e6774f925a7da87546e18, type: 3}
       propertyPath: m_RootOrder
       value: 4
