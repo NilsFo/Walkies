@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+    [Header("Gameplay")] public int targetFPS = 60;
+
     [Header("Walking Path")] public OwnerAI ownerAI;
     public OwnerPath ownerPath;
     public int ownerTargetWaypointIndex;
@@ -12,9 +14,19 @@ public class GameState : MonoBehaviour
     [Header("Player")] public PlayerMovementBehaviour player;
     public DogSnoot playerSnoot;
 
+    [Header("Interactions")] public Dictionary<Interactable.InteractableType, int> InteractionsCount;
+
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = targetFPS;
+
+        InteractionsCount = new Dictionary<Interactable.InteractableType, int>();
+        InteractionsCount.Add(Interactable.InteractableType.Friend, 0);
+        InteractionsCount.Add(Interactable.InteractableType.Pet, 0);
+        InteractionsCount.Add(Interactable.InteractableType.Treat, 0);
+        InteractionsCount.Add(Interactable.InteractableType.Tree, 0);
+
         ownerTargetWaypointIndex = -1;
         StartWalkies();
     }

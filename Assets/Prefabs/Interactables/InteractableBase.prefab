@@ -45,6 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcc6dbc9808f5940ba928fef6580b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyInteractedWith: 0
+  myType: 0
+  onInteractedWith:
+    m_PersistentCalls:
+      m_Calls: []
+  interactionSnapDistance: 2
 --- !u!1 &8102987660349302105
 GameObject:
   m_ObjectHideFlags: 0
