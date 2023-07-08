@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWalkingState: 0
-  speed: 0.05
-  turnSpeed: 2
-  damp: 0.05
+  speed: 0.2
+  turnSpeed: 3
+  damp: 10
   dogIsPulling: 0
   dogPullSurpriseTime: 0.5
-  dogPullCooldownTime: 5
+  dogPullCooldownTime: 3
 --- !u!50 &8943395765708115758
 Rigidbody2D:
   serializedVersion: 4
