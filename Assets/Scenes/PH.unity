@@ -26702,6 +26702,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4528532758086898132, guid: 8e8eed19b5678bf44b62e1dce5d84796, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528532758086898132, guid: 8e8eed19b5678bf44b62e1dce5d84796, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7436281829747669431, guid: 8e8eed19b5678bf44b62e1dce5d84796, type: 3}
       propertyPath: m_Pivot.x
       value: 0
