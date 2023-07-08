@@ -53,7 +53,8 @@ MonoBehaviour:
   playerSnoot: {fileID: 0}
   musicManager: {fileID: 0}
   debugTF: {fileID: 0}
-  frenzyTokenThreshold: 2
+  frenzyTokenThreshold: 4
   frenzyTokens: 0
-  frenzyTime: 5
+  frenzyTime: 10
   frenzyTimeCurrent: 0
+  playerMovedDuringFrenzy: 0

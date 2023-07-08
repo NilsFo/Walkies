@@ -20,15 +20,15 @@ public class GameState : MonoBehaviour
 
     [Header("Interactions")] public Dictionary<Interactable.InteractableType, int> InteractionsCount;
 
-    [FormerlySerializedAs("frenzyThreshold")] [Header("FrenzyCounter")]
-    public int frenzyTokenThreshold = 2;
-
-    [FormerlySerializedAs("frenzyProgress")]
+    [Header("FrenzyCounter")] public int frenzyTokenThreshold = 2;
     public int frenzyTokens = 0;
 
     public float frenzyTime = 5;
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
+
+    [Header("Bones")] public int bonesCollectedCount = 0;
+    public int bonesCollectedTarget = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +48,10 @@ public class GameState : MonoBehaviour
 
         musicManager.Play(0);
         musicManager.SkipFade();
+
+        // Updating bones objective
+        var bones = FindObjectsOfType<CollectibleBone>();
+        bonesCollectedTarget = bones.Length;
     }
 
     public void StartWalkies()
@@ -65,7 +69,7 @@ public class GameState : MonoBehaviour
         if (IsInFrenzyMode())
         {
             frenzyTimeCurrent -= Time.deltaTime;
-            if (frenzyTimeCurrent<=0)
+            if (frenzyTimeCurrent <= 0)
             {
                 OnExitFrenzyMode();
             }
@@ -125,6 +129,11 @@ public class GameState : MonoBehaviour
     public float GetFrenzyTokenProgressPercent()
     {
         return (float)frenzyTokens / (float)frenzyTokenThreshold;
+    }
+
+    public void OnBoneCollected()
+    {
+        bonesCollectedCount++;
     }
 
     public void OnWaypointReached(int index)

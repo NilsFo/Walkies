@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWalkingState: 0
-  speed: 0.2
+  speed: 0.4
   turnSpeed: 3
   damp: 10
   flailPullForce: 1250
