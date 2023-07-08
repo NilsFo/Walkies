@@ -24,7 +24,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public float linePullForce = 5f;
     
     public GameState gameState;
-    public Transform ownerTransform;
+    public OwnerAI owner;
 
     public Rigidbody2D rb2D;
 
@@ -75,13 +75,17 @@ public class PlayerMovementBehaviour : MonoBehaviour
         if(_velocity.sqrMagnitude != 0)
             dogVisuals.transform.rotation = Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
 
-        var ownerDelta = ownerTransform.position - transform.position;
+        var ownerDelta = owner.transform.position - transform.position;
 
         if (ownerDelta.magnitude > lineLength)
         {
             // Leine einholen
             var pullForce = Mathf.Pow(ownerDelta.magnitude - lineLength + 1, 2) * linePullForce;
             rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
+            owner.DogPull();
+        } else if(owner.dogIsPulling)
+        {
+            owner.DogStopPull();
         }
     }
     
