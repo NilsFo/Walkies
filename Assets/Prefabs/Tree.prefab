@@ -129,6 +129,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6050523243339394542}
     m_Modifications:
+    - target: {fileID: 1239390025551972412, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4287109846
+      objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: myType
       value: 3
@@ -192,6 +196,10 @@ PrefabInstance:
     - target: {fileID: 4294759414085187071, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Name
       value: InteractableBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675380571128354891, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Size.x

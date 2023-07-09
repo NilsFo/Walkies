@@ -43,7 +43,7 @@ public class ObjectiveBar : MonoBehaviour
         }
         else if (_gameState.FrenzyAvailable())
         {
-            textfield.text = "[SPACEBAR]";
+            textfield.text = "!! SPACEBAR !!";
             fillImage.color = frenzyAvailable;
             fillDesired = 1f;
         }
@@ -52,16 +52,28 @@ public class ObjectiveBar : MonoBehaviour
             fillImage.color = colorCharging;
             textfield.text = ""; //"Frenzy in: " + _gameState.frenzyTokens + "/" + _gameState.frenzyTokenThreshold;
             fillDesired = _gameState.GetFrenzyTokenProgressPercent();
+
+            // if (_gameState.playerSnoot.currentInteractable!=)
+            // {
+            //     textfield.text = "(E)";
+            // }
         }
 
         if (fillCurrent < fillDesired)
         {
             fillCurrent = fillCurrent + fillSpeed * Time.deltaTime;
+            if (fillCurrent > fillDesired)
+            {
+                fillCurrent = fillDesired;
+            }
         }
-
-        if (fillCurrent > fillDesired)
+        else if (fillCurrent > fillDesired)
         {
             fillCurrent = fillCurrent - fillSpeed * Time.deltaTime;
+            if (fillCurrent < fillDesired)
+            {
+                fillCurrent = fillDesired;
+            }
         }
 
         fillCurrent = Math.Clamp(fillCurrent, 0.0f, 1.0f);
