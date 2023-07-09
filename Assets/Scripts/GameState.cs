@@ -147,4 +147,9 @@ public class GameState : MonoBehaviour
         }
         ownerAI.fastWalk = false;
     }
+
+    public void Win()
+    {
+        Debug.Log("u win");
+    }
 }
