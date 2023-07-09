@@ -9,6 +9,8 @@ public class CollectibleBone : MonoBehaviour
     private GameState _gamestate;
     public AudioClip collectedClip;
     public Color particleColor;
+    private bool _deleted;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +25,14 @@ public class CollectibleBone : MonoBehaviour
 
     public void Collect()
     {
-        _gamestate.OnBoneCollected();
+        _deleted = true;
         _gamestate.musicManager.CreateAudioClip(collectedClip, transform.position);
         
         GameObject ob = Instantiate(ParticlePoofPrefab, transform.position,Quaternion.identity);
         ob.GetComponent<ParticleSystem>().startColor = particleColor;
         
         Destroy(transform.parent.gameObject);
+        _gamestate.OnBoneCollected();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -39,5 +42,9 @@ public class CollectibleBone : MonoBehaviour
         {
             Collect();
         }
+    }
+
+    public bool IsDeleted() {
+        return _deleted;
     }
 }

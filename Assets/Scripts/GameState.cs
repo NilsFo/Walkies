@@ -274,6 +274,10 @@ public class GameState : MonoBehaviour
         {
             player.BreakFree();
         }
+        if (bonesCollectedCount >= bonesCollectedTarget - 5) {
+            var kompass = FindObjectOfType<KompassBehaviourScript>();
+            kompass.UpdateList(FindObjectsOfType<CollectibleBone>().Where(b => !b.IsDeleted()).ToArray());
+        }
     }
 
     public void OnWaypointReached(int index)

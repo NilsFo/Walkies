@@ -4477,6 +4477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4135306417946387874, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 1047375679}
     - target: {fileID: 4493750713449930962, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
       value: 28.72784
@@ -4491,11 +4495,11 @@ PrefabInstance:
       objectReference: {fileID: 185623637}
     - target: {fileID: 7966328620005995837, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -46.11844
+      value: -46.1076
       objectReference: {fileID: 0}
     - target: {fileID: 7966328620005995837, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.19734
+      value: 26.19718
       objectReference: {fileID: 0}
     - target: {fileID: 8813030125820783517, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
       propertyPath: m_LocalPosition.x
