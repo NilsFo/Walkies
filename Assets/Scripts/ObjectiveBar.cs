@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ObjectiveBar : MonoBehaviour
 {
-    public Color colorCharging, frenzyAvailable, frenzyDrain;
+    public Color colorCharging, frenzyAvailable, freeColor;
     public Slider slider;
     public TextMeshProUGUI textfield;
     public Image fillImage;
@@ -18,6 +18,8 @@ public class ObjectiveBar : MonoBehaviour
     public float fillSpeed = 1.1337f;
     public float fillDesired = 0f;
     public float fillCurrent = 0f;
+
+    public Gradient frenzyDrainGradient;
 
     private void Awake()
     {
@@ -37,15 +39,23 @@ public class ObjectiveBar : MonoBehaviour
         if (_gameState.IsInFrenzyMode())
         {
             textfield.text = "";
-            fillImage.color = frenzyDrain;
             fillDesired = _gameState.GetFrenzyTimeRemainingPercent();
             fillCurrent = fillDesired;
+            fillImage.color = frenzyDrainGradient.Evaluate(fillCurrent);
+        }
+        else if (_gameState.IsInFreeMode())
+        {
+            textfield.text = "!! FREEDOM !!";
+            fillImage.color = freeColor;
+            fillDesired = 1f;
+            fillCurrent = 1;
         }
         else if (_gameState.FrenzyAvailable())
         {
             textfield.text = "!! SPACEBAR !!";
             fillImage.color = frenzyAvailable;
             fillDesired = 1f;
+            fillCurrent = 1;
         }
         else
         {

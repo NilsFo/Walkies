@@ -235,8 +235,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         currentInputState = PlayerInputState.Free;
         owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
-        _gameState.OnEnterFrenzyMode();
+        _gameState.OnEnterFrenzyMode(false);
         GetComponentInChildren<LineConnectionSprite>().enabled = false;
-        
     }
 }

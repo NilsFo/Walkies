@@ -135,7 +135,7 @@ public class Interactable : MonoBehaviour
 
     public bool IsInteractable()
     {
-        return alreadyInteractedWith == false && !_gameState.IsInFrenzyMode();
+        return alreadyInteractedWith == false && !_gameState.IsInFrenzyMode() && !_gameState.IsInFreeMode();
     }
 
     private void OnDrawGizmos()
@@ -189,7 +189,8 @@ public class Interactable : MonoBehaviour
     public Vector2 GetCurrentSnapPoint()
     {
         Vector2 dogPos = _gameState.player.transform.position;
-        Vector2 newPos = (Vector2)transform.position + (dogPos - (Vector2)transform.position).normalized * interactionSnapDistance;
+        Vector2 newPos = (Vector2)transform.position +
+                         (dogPos - (Vector2)transform.position).normalized * interactionSnapDistance;
         return newPos;
     }
 
