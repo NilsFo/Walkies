@@ -55,6 +55,9 @@ public class GameState : MonoBehaviour
 
     [Header("Winning")] public GameObject invisibleWallsHolder;
     public GameObject winTriggerHolder;
+    public float autoWinTimerCurrent = 0;
+    public float autoWinTimer = 30;
+    public bool hasAutoWon = false;
 
     [Header("StartGame")] public CanvasGroup startGameCanvas;
     public float startGameCanvasAlphaDesired = 1.0f;
@@ -68,6 +71,7 @@ public class GameState : MonoBehaviour
     {
         Application.targetFrameRate = targetFPS;
         gameOverUI.gameObject.SetActive(true);
+        hasAutoWon = false;
 
         InteractionsCount = new Dictionary<Interactable.InteractableType, int>
         {
@@ -141,6 +145,20 @@ public class GameState : MonoBehaviour
         {
             frenzyTimeCurrent = 0;
             playerMovedDuringFrenzy = false;
+        }
+
+        if (IsInFreeMode())
+        {
+            autoWinTimerCurrent = autoWinTimerCurrent += Time.deltaTime;
+            if (autoWinTimerCurrent >= autoWinTimer)
+            {
+                Win();
+                hasAutoWon = true;
+            }
+        }
+        else
+        {
+            autoWinTimerCurrent = 0;
         }
 
         // Updating bonesTF text
@@ -266,6 +284,12 @@ public class GameState : MonoBehaviour
 
     public void Win()
     {
+        if (hasAutoWon)
+        {
+            return;
+        }
+
+        hasAutoWon = true;
         Debug.Log("u win");
         gameOverUI.StartFade();
         musicManager.Play(2);
