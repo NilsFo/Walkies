@@ -60,7 +60,7 @@ public class DogSnoot : MonoBehaviour
     {
         if (currentInteractable != null)
         {
-            currentInteractable.focusHighlightVisuals.SetActive(true);
+            currentInteractable.focusHighlightVisuals.SetActive(currentInteractable.IsInteractable());
         }
     }
 

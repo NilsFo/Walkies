@@ -80,7 +80,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 7116906443233047326}
   - component: {fileID: 4542713700743647655}
   - component: {fileID: 1438877601308210245}
-  - component: {fileID: 4522293531223928388}
+  - component: {fileID: 2228188034797102724}
   m_Layer: 0
   m_Name: Snoot
   m_TagString: Untagged
@@ -221,8 +221,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d2022d94ed8cc2d4a94091c9b8df2d8e, type: 3}
   barkCooldown: 1.337
   barkCooldownCurrent: 0
---- !u!70 &4522293531223928388
-CapsuleCollider2D:
+--- !u!58 &2228188034797102724
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -253,9 +253,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0011658669, y: -0.29196298}
-  m_Size: {x: 0.19533825, y: 0.98392606}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.29}
+  serializedVersion: 2
+  m_Radius: 0.22
 --- !u!1 &3992784492952254317
 GameObject:
   m_ObjectHideFlags: 0
