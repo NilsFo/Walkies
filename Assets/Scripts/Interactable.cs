@@ -20,6 +20,9 @@ public class Interactable : MonoBehaviour
     public bool meowAfterwards = false;
     public AudioClip meow;
 
+    [Header("Cooldown")] public float reuseCooldown = 25;
+    private float reuseCooldownCurrent = 0;
+
     [Header("UI")] public GameObject keepUprightUI;
 
     [Header("Debug")] public GameObject focusHighlightVisuals;
@@ -76,6 +79,19 @@ public class Interactable : MonoBehaviour
         keepUprightUI.transform.position = pos;
         Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
         keepUprightUI.transform.rotation = q;
+
+        if (alreadyInteractedWith)
+        {
+            reuseCooldownCurrent -= Time.deltaTime;
+            if (reuseCooldownCurrent < 0)
+            {
+                alreadyInteractedWith = false;
+            }
+        }
+        else
+        {
+            reuseCooldownCurrent = reuseCooldown;
+        }
     }
 
     public void OnInteractedWith()
@@ -172,8 +188,8 @@ public class Interactable : MonoBehaviour
 
     public Vector2 GetCurrentSnapPoint()
     {
-        Vector3 dogPos = _gameState.player.transform.position;
-        Vector3 newPos = transform.position + (dogPos - transform.position).normalized * interactionSnapDistance;
+        Vector2 dogPos = _gameState.player.transform.position;
+        Vector2 newPos = (Vector2)transform.position + (dogPos - (Vector2)transform.position).normalized * interactionSnapDistance;
         return newPos;
     }
 

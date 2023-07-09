@@ -226,7 +226,8 @@ MonoBehaviour:
   showRange: 0
   barkAfterwards: 0
   meowAfterwards: 0
-  meow: {fileID: 8300000, guid: cfa56c36702133a4bbd702a39fc0f41e, type: 3}
+  meow: {fileID: 8300000, guid: 301b0b35cba6e6a4b84e967279d55963, type: 3}
+  reuseCooldown: 25
   keepUprightUI: {fileID: 1463201355648209369}
   focusHighlightVisuals: {fileID: 4642995966886889450}
 --- !u!1 &4642995966886889450
