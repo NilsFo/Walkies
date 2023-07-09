@@ -17,6 +17,10 @@ public class Interactable : MonoBehaviour
     [Header("Interactions")] public float interactionSnapDistance = 1.0f;
     public bool showRange = false;
     public bool barkAfterwards = false;
+    public bool meowAfterwards = false;
+    public AudioClip meow;
+
+    [Header("UI")] public GameObject keepUprightUI;
 
     [Header("Debug")] public GameObject focusHighlightVisuals;
 
@@ -67,6 +71,11 @@ public class Interactable : MonoBehaviour
     void Update()
     {
         focusHighlightVisuals.SetActive(false);
+
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        keepUprightUI.transform.position = pos;
+        Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        keepUprightUI.transform.rotation = q;
     }
 
     public void OnInteractedWith()
@@ -100,6 +109,11 @@ public class Interactable : MonoBehaviour
         if (barkAfterwards)
         {
             RequestBark();
+        }
+
+        if (meowAfterwards)
+        {
+            _gameState.musicManager.CreateAudioClip(meow, transform.position);
         }
     }
 

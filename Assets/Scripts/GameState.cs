@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -27,6 +29,11 @@ public class GameState : MonoBehaviour
     public float frenzyTime = 5;
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
+
+    [Header("Camera")] public CinemachineVirtualCamera virtualCamera;
+    public float cameraDistanceDefault = 5f;
+    public float cameraDistanceFrenzy = 7f;
+    public float zoomSpeed = 2f;
 
     [Header("Bones")] public int bonesCollectedCount = 0;
     public int bonesCollectedTarget = 0;
@@ -85,6 +92,20 @@ public class GameState : MonoBehaviour
         debugTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
     }
 
+    private void LateUpdate()
+    {
+        float currentOrthographicDistance = virtualCamera.m_Lens.OrthographicSize;
+        float desiredOrthographicDistance = cameraDistanceDefault;
+        if (IsInFrenzyMode())
+        {
+            desiredOrthographicDistance = cameraDistanceFrenzy;
+        }
+
+        currentOrthographicDistance = Mathf.MoveTowards(currentOrthographicDistance, desiredOrthographicDistance,
+            Time.deltaTime * zoomSpeed);
+        virtualCamera.m_Lens.OrthographicSize = currentOrthographicDistance;
+    }
+
     public void EnterFrenzyMode()
     {
         frenzyTimeCurrent = frenzyTime;
@@ -139,7 +160,8 @@ public class GameState : MonoBehaviour
         ownerTargetWaypointIndex = index + 1;
         if (ownerTargetWaypointIndex >= ownerPath.waypoints.Count)
         {
-            print("WALKIES OVER!");
+            print("WALKIES OVER! Restarting!");
+            ownerTargetWaypointIndex = 0;
         }
     }
 }

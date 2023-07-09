@@ -59,5 +59,9 @@ MonoBehaviour:
   frenzyTime: 10
   frenzyTimeCurrent: 0
   playerMovedDuringFrenzy: 0
+  virtualCamera: {fileID: 0}
+  cameraDistanceDefault: 6
+  cameraDistanceFrenzy: 10
+  zoomSpeed: 4
   bonesCollectedCount: 0
   bonesCollectedTarget: 0

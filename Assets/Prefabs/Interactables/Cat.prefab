@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5651863747537300981}
   - component: {fileID: 6975769129521068607}
+  - component: {fileID: 5981636228062763704}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 8444305961530062133}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6975769129521068607
 SpriteRenderer:
@@ -85,6 +86,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &5981636228062763704
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764299416166785598}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.35713416
 --- !u!1001 &4797939181228387425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +139,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: barkAfterwards
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: meowAfterwards
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
@@ -111,7 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: interactionSnapDistance
-      value: 1.5
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 4009760353431689556, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_RootOrder
@@ -161,6 +201,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableBase
       objectReference: {fileID: 0}
+    - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Size.x
+      value: 2.0709872
+      objectReference: {fileID: 0}
+    - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Size.y
+      value: 2.0709872
+      objectReference: {fileID: 0}
+    - target: {fileID: 6514025419727926261, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6972719068418364954, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -176,6 +228,10 @@ PrefabInstance:
     - target: {fileID: 7833008086911853974, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Color.r
       value: 0.78039217
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833008086911853974, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
