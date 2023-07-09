@@ -4477,6 +4477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4135306417946387874, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 1047375679}
     - target: {fileID: 4493750713449930962, guid: fb5bca70ad11ab44a90c4440f449d2e8, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
       value: 28.72784
