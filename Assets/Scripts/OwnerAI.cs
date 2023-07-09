@@ -135,7 +135,7 @@ public class OwnerAI : MonoBehaviour
                 0));
 
         _velocity -= _velocity * (damp * Time.deltaTime);
-        rb2D.MovePosition(myPos + _velocity);
+        rb2D.MovePosition(myPos + _velocity * Time.deltaTime);
     }
 
     private void MovementWalkingHere()
@@ -145,27 +145,31 @@ public class OwnerAI : MonoBehaviour
         Vector2 target = _gameState.ownerPath.CurrentWayPointTarget();
         Vector2 targetDirection = target - myPos;
         _velocity -= _velocity * (damp * Time.deltaTime);
-        _velocity += (Vector2)transform.up * (speed * Time.deltaTime);
+        _velocity += (Vector2)transform.up * (speed);
         transform.rotation = Quaternion.LookRotation(Vector3.forward,
             Vector3.RotateTowards((Vector2)transform.up,
                 targetDirection.normalized,
                 turnSpeed * Time.deltaTime,
                 0));
-
+        
+        Vector2 targetDog = (Vector2)dog.transform.position - myPos;
         if (dogIsPulling && _dogPullSurpriseTimer > 0)
         {
             _dogPullSurpriseTimer -= Time.deltaTime;
-            Vector2 targetDog = (Vector2)dog.transform.position - myPos;
             transform.rotation = Quaternion.LookRotation(Vector3.forward,
                 Vector3.RotateTowards((Vector2)transform.up,
                     targetDog.normalized,
                     turnSpeed * Time.deltaTime * 5f,
                     0));
-            _velocity += targetDog.normalized * (Time.deltaTime * 0.5f);
         }
 
-        rb2D.MovePosition(myPos + _velocity);
-        
+        if (dogIsPulling)
+        {
+            var pullForce = Mathf.Clamp(Mathf.Pow(targetDog.magnitude - dog.lineLength + 1, 2) * 0.5f, 0f, 0.3f);
+            _velocity += targetDog.normalized * pullForce;
+        }
+
+        rb2D.MovePosition(myPos + _velocity * Time.deltaTime);
         
         if (_dogPullCooldownTimer > 0)
         {
