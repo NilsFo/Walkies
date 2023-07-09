@@ -54,6 +54,7 @@ MonoBehaviour:
   musicManager: {fileID: 0}
   gameOverUI: {fileID: 0}
   bonesTF: {fileID: 0}
+  volumeSlider: {fileID: 0}
   frenzyTokenThreshold: 4
   frenzyTokens: 0
   frenzySpeedMult: 1.5
@@ -61,6 +62,7 @@ MonoBehaviour:
   frenzyTimeCurrent: 0
   playerMovedDuringFrenzy: 0
   frenzyCount: 0
+  ropePull: {fileID: 8300000, guid: 42e24b582c35dd54fbce66561b466b63, type: 3}
   virtualCamera: {fileID: 0}
   cameraDistanceDefault: 6
   cameraDistanceFrenzy: 10
@@ -71,6 +73,9 @@ MonoBehaviour:
   bonesCollectedTarget: 0
   invisibleWallsHolder: {fileID: 0}
   winTriggerHolder: {fileID: 0}
+  autoWinTimerCurrent: 0
+  autoWinTimer: 30
+  hasAutoWon: 0
   startGameCanvas: {fileID: 0}
   startGameCanvasAlphaDesired: 1
   startGameCanvasFadeSpeed: 2

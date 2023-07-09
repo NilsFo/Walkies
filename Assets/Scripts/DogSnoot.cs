@@ -29,7 +29,7 @@ public class DogSnoot : MonoBehaviour
     void Update()
     {
         float cooldownMult = 1.0f;
-        if (_gameState.IsInFrenzyMode())
+        if (_gameState.IsInFrenzyMode() || _gameState.IsInFreeMode())
         {
             cooldownMult = 2.5f;
         }

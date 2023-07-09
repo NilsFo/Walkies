@@ -45,6 +45,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
     private static readonly int Sniff = Animator.StringToHash("sniff");
 
+    public AudioClip ropeSnap;
 
     private void Awake()
     {
@@ -106,13 +107,14 @@ public class PlayerMovementBehaviour : MonoBehaviour
         {
             modSpeed *= _gameState.frenzySpeedMult;
         }
-        
+
         if (_dashTime > 0)
         {
             modSpeed *= dashMod;
         }
 
-        bool movementBlocked = !(currentInputState is PlayerInputState.InControl or PlayerInputState.Frenzy or PlayerInputState.Free);
+        bool movementBlocked =
+            !(currentInputState is PlayerInputState.InControl or PlayerInputState.Frenzy or PlayerInputState.Free);
 
         float x = 0;
         float y = 0;
@@ -164,7 +166,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         if (_velocity.magnitude > 0.01f && !movementBlocked)
             dogVisuals.transform.rotation =
                 Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
-        
+
         if (currentInputState != PlayerInputState.Free)
         {
             var ownerDelta = owner.transform.position - transform.position;
@@ -235,11 +237,13 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         currentInputState = PlayerInputState.Free;
         owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
-        _gameState.OnEnterFrenzyMode(false);
+        _gameState.OnEnterFrenzyMode(false, false);
         GetComponentInChildren<LineConnectionSprite>().enabled = false;
         _gameState.musicManager.Play(1);
-        
+
         _gameState.invisibleWallsHolder.SetActive(false);
         _gameState.winTriggerHolder.SetActive(true);
+
+        _gameState.musicManager.CreateAudioClip(ropeSnap, transform.position);
     }
 }

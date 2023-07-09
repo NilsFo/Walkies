@@ -42,6 +42,7 @@ public class GameState : MonoBehaviour
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
     public int frenzyCount = 0;
+    public AudioClip ropePull;
 
     [Header("Camera")] public CinemachineVirtualCamera virtualCamera;
     public float cameraDistanceDefault = 5f;
@@ -206,10 +207,10 @@ public class GameState : MonoBehaviour
     {
         frenzyTimeCurrent = frenzyTime;
         frenzyTokens = 0;
-        OnEnterFrenzyMode(true);
+        OnEnterFrenzyMode(true, true);
     }
 
-    public void OnEnterFrenzyMode(bool incrementCounter)
+    public void OnEnterFrenzyMode(bool incrementCounter, bool playAudio)
     {
         musicManager.Play(1, true);
         musicManager.SkipFade();
@@ -217,6 +218,11 @@ public class GameState : MonoBehaviour
         if (incrementCounter)
         {
             frenzyCount++;
+        }
+
+        if (playAudio)
+        {
+            musicManager.CreateAudioClip(ropePull, transform.position);
         }
     }
 
@@ -264,7 +270,7 @@ public class GameState : MonoBehaviour
     public void OnBoneCollected()
     {
         bonesCollectedCount++;
-        if (bonesCollectedCount >= bonesCollectedTarget)
+        if (bonesCollectedCount >= bonesCollectedTarget && !IsInFreeMode())
         {
             player.BreakFree();
         }

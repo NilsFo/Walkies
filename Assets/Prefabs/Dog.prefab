@@ -57,6 +57,7 @@ MonoBehaviour:
   rb2D: {fileID: 7718632338018766684}
   dogVisuals: {fileID: 216879760295999186}
   dogAnimator: {fileID: 5957209448796364845}
+  ropeSnap: {fileID: 8300000, guid: 12d0e155f78461749a66cb061fcdc1e4, type: 3}
 --- !u!50 &7718632338018766684
 Rigidbody2D:
   serializedVersion: 4
