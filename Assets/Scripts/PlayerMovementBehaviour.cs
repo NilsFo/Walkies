@@ -161,10 +161,10 @@ public class PlayerMovementBehaviour : MonoBehaviour
         rb2D.AddForce(moveInput);
         _velocity = rb2D.velocity;
         //movementAnimator.velocity = _velocity;
-        if (_velocity.sqrMagnitude != 0)
+        if (_velocity.magnitude > 0.01f)
             dogVisuals.transform.rotation =
                 Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
-
+        
         if (currentInputState != PlayerInputState.Free)
         {
             var ownerDelta = owner.transform.position - transform.position;

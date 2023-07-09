@@ -18,6 +18,7 @@ public class OwnerAI : MonoBehaviour
 
     private GameState _gameState;
     public float speed = 1f;
+    public bool fastWalk = false;
     public float turnSpeed = 1f;
     public float damp = 0.1f;
     public float flailPullForce = 10f;
@@ -108,6 +109,7 @@ public class OwnerAI : MonoBehaviour
 
     private void MovementFlailing()
     {
+        fastWalk = true;
         rb2D.bodyType = RigidbodyType2D.Dynamic;
         Vector2 myPos = transform.position;
         _velocity -= _velocity * (damp * Time.deltaTime);
@@ -145,7 +147,7 @@ public class OwnerAI : MonoBehaviour
         Vector2 target = _gameState.ownerPath.CurrentWayPointTarget();
         Vector2 targetDirection = target - myPos;
         _velocity -= _velocity * (damp * Time.deltaTime);
-        _velocity += (Vector2)transform.up * (speed);
+        _velocity += (Vector2)transform.up * (speed * (fastWalk ? 2f : 1f));
         transform.rotation = Quaternion.LookRotation(Vector3.forward,
             Vector3.RotateTowards((Vector2)transform.up,
                 targetDirection.normalized,

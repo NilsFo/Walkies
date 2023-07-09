@@ -145,5 +145,6 @@ public class GameState : MonoBehaviour
         {
             print("WALKIES OVER!");
         }
+        ownerAI.fastWalk = false;
     }
 }
