@@ -237,5 +237,9 @@ public class PlayerMovementBehaviour : MonoBehaviour
         owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
         _gameState.OnEnterFrenzyMode(false);
         GetComponentInChildren<LineConnectionSprite>().enabled = false;
+        _gameState.musicManager.Play(1);
+        
+        _gameState.invisibleWallsHolder.SetActive(false);
+        _gameState.winTriggerHolder.SetActive(true);
     }
 }

@@ -71,7 +71,7 @@ public class DogSnoot : MonoBehaviour
             int i = Random.Range(0, barks.Count);
             AudioClip bark = barks[i];
 
-            _gameState.musicManager.CreateAudioClip(bark, transform.position);
+            _gameState.musicManager.CreateAudioClip(bark, transform.position,soundInstanceVolumeMult:1.8f);
             barkCooldownCurrent = barkCooldown;
         }
     }
