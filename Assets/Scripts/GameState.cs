@@ -38,6 +38,9 @@ public class GameState : MonoBehaviour
     [Header("Bones")] public int bonesCollectedCount = 0;
     public int bonesCollectedTarget = 0;
 
+    [Header("Winning")] public GameObject invisibleWallsHolder;
+    public GameObject winTriggerHolder;
+
     // Start is called before the first frame update
     void Start()
     {
