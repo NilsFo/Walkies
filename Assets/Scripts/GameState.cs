@@ -19,7 +19,8 @@ public class GameState : MonoBehaviour
     [Header("Player")] public PlayerMovementBehaviour player;
     public DogSnoot playerSnoot;
     public MusicManager musicManager;
-    public TMP_Text debugTF;
+    public GameOverUI gameOverUI;
+    public TMP_Text bonesTF;
 
     [Header("Interactions")] public Dictionary<Interactable.InteractableType, int> InteractionsCount;
 
@@ -30,10 +31,12 @@ public class GameState : MonoBehaviour
     public float frenzyTime = 5;
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
+    public int frenzyCount = 0;
 
     [Header("Camera")] public CinemachineVirtualCamera virtualCamera;
     public float cameraDistanceDefault = 5f;
     public float cameraDistanceFrenzy = 7f;
+    public float cameraDistanceInitial = 3.5f;
     public float zoomSpeed = 2f;
 
     [Header("Bones")] public int bonesCollectedCount = 0;
@@ -41,11 +44,13 @@ public class GameState : MonoBehaviour
 
     [Header("Winning")] public GameObject invisibleWallsHolder;
     public GameObject winTriggerHolder;
+    public bool cutsceneMode = false;
 
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = targetFPS;
+        gameOverUI.gameObject.SetActive(true);
 
         InteractionsCount = new Dictionary<Interactable.InteractableType, int>
         {
@@ -92,15 +97,21 @@ public class GameState : MonoBehaviour
             playerMovedDuringFrenzy = false;
         }
 
-        // Updating debug text
-        debugTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
+        // Updating bonesTF text
+        bonesTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
     }
 
     private void LateUpdate()
     {
         float currentOrthographicDistance = virtualCamera.m_Lens.OrthographicSize;
         float desiredOrthographicDistance = cameraDistanceDefault;
-        if (IsInFrenzyMode())
+
+        if (cutsceneMode)
+        {
+            desiredOrthographicDistance = cameraDistanceInitial;
+        }
+
+        if (IsInFrenzyMode() || IsInFreeMode())
         {
             desiredOrthographicDistance = cameraDistanceFrenzy;
         }
@@ -114,20 +125,25 @@ public class GameState : MonoBehaviour
     {
         frenzyTimeCurrent = frenzyTime;
         frenzyTokens = 0;
-        OnEnterFrenzyMode();
+        OnEnterFrenzyMode(true);
     }
 
-    public void OnEnterFrenzyMode()
+    public void OnEnterFrenzyMode(bool incrementCounter)
     {
         musicManager.Play(1, true);
         musicManager.SkipFade();
+
+        if (incrementCounter)
+        {
+            frenzyCount++;
+        }
     }
 
     public void OnExitFrenzyMode()
     {
         print("OnFrenzyExit!");
         musicManager.Play(0);
-        
+
         // Set closest waypoint
         int closestIndex = ownerPath.waypoints.IndexOf(ownerPath.waypoints.OrderBy(waypoint =>
             Vector2.Distance(waypoint.transform.position, ownerAI.transform.position)).FirstOrDefault());
@@ -139,9 +155,14 @@ public class GameState : MonoBehaviour
         return frenzyTimeCurrent > 0;
     }
 
+    public bool IsInFreeMode()
+    {
+        return player.currentInputState == PlayerMovementBehaviour.PlayerInputState.Free;
+    }
+
     public bool FrenzyAvailable()
     {
-        return frenzyTokens >= frenzyTokenThreshold;
+        return frenzyTokens >= frenzyTokenThreshold && !IsInFreeMode();
     }
 
     public void AddFrenzyPoint()
@@ -176,11 +197,15 @@ public class GameState : MonoBehaviour
             print("WALKIES OVER! Restarting!");
             ownerTargetWaypointIndex = 0;
         }
+
         ownerAI.fastWalk = false;
     }
 
     public void Win()
     {
         Debug.Log("u win");
+        cutsceneMode = true;
+        gameOverUI.StartFade();
+        musicManager.Play(0);
     }
 }
