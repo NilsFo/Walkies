@@ -132,6 +132,10 @@ public class GameState : MonoBehaviour
     public void OnBoneCollected()
     {
         bonesCollectedCount++;
+        if (bonesCollectedCount >= bonesCollectedTarget)
+        {
+            player.BreakFree();
+        }
     }
 
     public void OnWaypointReached(int index)

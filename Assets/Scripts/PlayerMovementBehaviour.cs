@@ -10,6 +10,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         Disabled,
         InControl,
         Frenzy,
+        Free,
         AnimationLocked
     }
 
@@ -101,7 +102,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         var modSpeed = speed;
-        if (_gameState.IsInFrenzyMode())
+        if (_gameState.IsInFrenzyMode() || currentInputState == PlayerInputState.Free)
         {
             modSpeed *= _gameState.frenzySpeedMult;
         }
@@ -111,16 +112,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             modSpeed *= dashMod;
         }
 
-        bool movementBlocked = true;
-        if (currentInputState == PlayerInputState.InControl)
-        {
-            movementBlocked = false;
-        }
-
-        if (currentInputState == PlayerInputState.Frenzy)
-        {
-            movementBlocked = false;
-        }
+        bool movementBlocked = !(currentInputState is PlayerInputState.InControl or PlayerInputState.Frenzy or PlayerInputState.Free);
 
         float x = 0;
         float y = 0;
@@ -173,30 +165,33 @@ public class PlayerMovementBehaviour : MonoBehaviour
             dogVisuals.transform.rotation =
                 Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
 
-        var ownerDelta = owner.transform.position - transform.position;
-        if (LeineStramm() && currentInputState != PlayerInputState.Frenzy)
+        if (currentInputState != PlayerInputState.Free)
         {
-            // Leine einholen
-            var pullForce = Mathf.Pow(ownerDelta.magnitude - lineLength + 1, 2) * linePullForce;
-            rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
-            owner.DogPull();
-        }
-        else if (owner.dogIsPulling)
-        {
-            owner.DogStopPull();
-        }
-
-        if ((owner.transform.position - transform.position).magnitude > lineLength * 3)
-        {
-            // Emergency reset
-            if (currentInputState == PlayerInputState.InControl)
+            var ownerDelta = owner.transform.position - transform.position;
+            if (LeineStramm() && currentInputState != PlayerInputState.Frenzy)
             {
-                transform.position = owner.transform.position;
-                rb2D.velocity = Vector2.zero;
+                // Leine einholen
+                var pullForce = Mathf.Pow(ownerDelta.magnitude - lineLength + 1, 2) * linePullForce;
+                rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
+                owner.DogPull();
             }
-            else
+            else if (owner.dogIsPulling)
             {
-                owner.transform.position = transform.position;
+                owner.DogStopPull();
+            }
+
+            if ((owner.transform.position - transform.position).magnitude > lineLength * 3)
+            {
+                // Emergency reset
+                if (currentInputState == PlayerInputState.InControl)
+                {
+                    transform.position = owner.transform.position;
+                    rb2D.velocity = Vector2.zero;
+                }
+                else
+                {
+                    owner.transform.position = transform.position;
+                }
             }
         }
     }
@@ -232,5 +227,16 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         currentInputState = PlayerInputState.InControl;
         dogAnimator.ResetTrigger(Sniff);
+    }
+
+    public void BreakFree()
+    {
+        // I want to break free
+
+        currentInputState = PlayerInputState.Free;
+        owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
+        _gameState.OnEnterFrenzyMode();
+        GetComponentInChildren<LineConnectionSprite>().enabled = false;
+        
     }
 }
