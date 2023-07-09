@@ -207,6 +207,7 @@ public class GameState : MonoBehaviour
     {
         frenzyTimeCurrent = frenzyTime;
         frenzyTokens = 0;
+        playerSnoot.currentInteractable = null;
         OnEnterFrenzyMode(true, true);
     }
 

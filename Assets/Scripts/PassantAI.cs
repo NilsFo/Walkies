@@ -125,7 +125,7 @@ public class PassantAI : MonoBehaviour
         var temp = initialPos;
         initialPos = walkTarget.position;
         walkTarget.transform.position = temp;
-        GetComponentInChildren<Interactable>().alreadyInteractedWith = false;
+        // GetComponentInChildren<Interactable>().alreadyInteractedWith = false;
     }
 
 

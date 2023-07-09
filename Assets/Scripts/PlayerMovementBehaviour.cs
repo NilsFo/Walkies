@@ -82,6 +82,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             if (_gameState.FrenzyAvailable())
             {
                 _gameState.EnterFrenzyMode();
+                _gameState.playerSnoot.currentInteractable = null;
             }
             else
             {
@@ -240,6 +241,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         _gameState.OnEnterFrenzyMode(false, false);
         GetComponentInChildren<LineConnectionSprite>().enabled = false;
         _gameState.musicManager.Play(1);
+        _gameState.playerSnoot.currentInteractable = null;
 
         _gameState.invisibleWallsHolder.SetActive(false);
         _gameState.winTriggerHolder.SetActive(true);
