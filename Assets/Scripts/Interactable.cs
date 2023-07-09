@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour
 
     [Header("Interactions")] public float interactionSnapDistance = 1.0f;
     public bool showRange = false;
-    public bool barkAfterwards=false;
+    public bool barkAfterwards = false;
 
     [Header("Debug")] public GameObject focusHighlightVisuals;
 
@@ -105,7 +105,7 @@ public class Interactable : MonoBehaviour
 
     public bool IsInteractable()
     {
-        return alreadyInteractedWith == false;
+        return alreadyInteractedWith == false && !_gameState.IsInFrenzyMode();
     }
 
     private void OnDrawGizmos()
@@ -167,5 +167,4 @@ public class Interactable : MonoBehaviour
     {
         _gameState.playerSnoot.RequestBark();
     }
-    
 }

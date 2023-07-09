@@ -82,7 +82,7 @@ public class GameState : MonoBehaviour
         }
 
         // Updating debug text
-        debugTF.text = "Bones: " + bonesCollectedCount + "/" + bonesCollectedTarget;
+        debugTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
     }
 
     public void EnterFrenzyMode()
