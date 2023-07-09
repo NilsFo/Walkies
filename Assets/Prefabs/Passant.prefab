@@ -85,7 +85,7 @@ MonoBehaviour:
   currentWalkingState: 1
   walkTarget: {fileID: 2428390603191163732}
   speed: 0.3
-  turnSpeed: 3
+  turnSpeed: 3000
   damp: 10
   ownerAnimator: {fileID: 5535874089144359244}
   showRange: 1
