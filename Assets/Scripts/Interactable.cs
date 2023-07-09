@@ -75,7 +75,7 @@ public class Interactable : MonoBehaviour
     {
         focusHighlightVisuals.SetActive(false);
 
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, -8f);
         keepUprightUI.transform.position = pos;
         Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
         keepUprightUI.transform.rotation = q;

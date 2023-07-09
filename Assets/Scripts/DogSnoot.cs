@@ -71,7 +71,7 @@ public class DogSnoot : MonoBehaviour
             int i = Random.Range(0, barks.Count);
             AudioClip bark = barks[i];
 
-            _gameState.musicManager.CreateAudioClip(bark, transform.position,soundInstanceVolumeMult:1.8f);
+            _gameState.musicManager.CreateAudioClip(bark, transform.position, soundInstanceVolumeMult: 1.8f);
             barkCooldownCurrent = barkCooldown;
         }
     }
@@ -91,7 +91,8 @@ public class DogSnoot : MonoBehaviour
 
         if (interactable != null)
         {
-            if (interactable.IsInteractable())
+            if (interactable.IsInteractable() && _gameState.player.currentInputState !=
+                PlayerMovementBehaviour.PlayerInputState.AnimationLocked)
             {
                 currentInteractable = interactable;
             }
