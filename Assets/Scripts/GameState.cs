@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -126,6 +127,11 @@ public class GameState : MonoBehaviour
     {
         print("OnFrenzyExit!");
         musicManager.Play(0);
+        
+        // Set closest waypoint
+        int closestIndex = ownerPath.waypoints.IndexOf(ownerPath.waypoints.OrderBy(waypoint =>
+            Vector2.Distance(waypoint.transform.position, ownerAI.transform.position)).FirstOrDefault());
+        ownerTargetWaypointIndex = closestIndex;
     }
 
     public bool IsInFrenzyMode()
