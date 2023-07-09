@@ -128,8 +128,6 @@ public class MusicManager : MonoBehaviour
         {
             pg += " - " + audioSource.time;
         }
-
-        print("Progress: " + pg);
     }
 
     public float GetVolumeMusic()
