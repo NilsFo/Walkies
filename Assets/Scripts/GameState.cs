@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
+using Slider = UnityEngine.UI.Slider;
 
 public class GameState : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GameState : MonoBehaviour
     public MusicManager musicManager;
     public GameOverUI gameOverUI;
     public TMP_Text bonesTF;
+    public Slider volumeSlider;
 
     [Header("Interactions")] public Dictionary<Interactable.InteractableType, int> InteractionsCount;
 
@@ -143,6 +145,13 @@ public class GameState : MonoBehaviour
 
         // Updating bonesTF text
         bonesTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
+
+        MusicManager.userDesiredMusicVolume = volumeSlider.value;
+        MusicManager.userDesiredSoundVolume = volumeSlider.value;
+        if (!HasGameStartedYet())
+        {
+            musicManager.SkipFade();
+        }
     }
 
     public bool HasGameStartedYet()
@@ -259,9 +268,6 @@ public class GameState : MonoBehaviour
     {
         Debug.Log("u win");
         gameOverUI.StartFade();
-        musicManager.Play(0);
-
-        invisibleWallsHolder.SetActive(false);
-        winTriggerHolder.SetActive(true);
+        musicManager.Play(2);
     }
 }

@@ -11,7 +11,6 @@ public class ObjectiveBar : MonoBehaviour
     public Slider slider;
     public TextMeshProUGUI textfield;
     public Image fillImage;
-    public Image iconImage;
 
     private GameState _gameState;
 
@@ -19,7 +18,9 @@ public class ObjectiveBar : MonoBehaviour
     public float fillDesired = 0f;
     public float fillCurrent = 0f;
 
-    public Gradient frenzyDrainGradient;
+    public Gradient frenzyDrainGradient, freeColorGradient;
+    public float colorChangeSpeed;
+    private float colorGradientProgress;
 
     private void Awake()
     {
@@ -31,11 +32,20 @@ public class ObjectiveBar : MonoBehaviour
     {
         fillDesired = 0f;
         fillCurrent = 0f;
+        colorGradientProgress = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        colorGradientProgress += Time.deltaTime * colorChangeSpeed;
+        if (colorGradientProgress > 1)
+        {
+            colorGradientProgress = colorGradientProgress - 1;
+        }
+
+        freeColor = freeColorGradient.Evaluate(colorGradientProgress);
+
         if (_gameState.IsInFrenzyMode())
         {
             textfield.text = "";
