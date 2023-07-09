@@ -153,6 +153,10 @@ public class GameState : MonoBehaviour
     public void OnBoneCollected()
     {
         bonesCollectedCount++;
+        if (bonesCollectedCount >= bonesCollectedTarget)
+        {
+            player.BreakFree();
+        }
     }
 
     public void OnWaypointReached(int index)
@@ -163,5 +167,11 @@ public class GameState : MonoBehaviour
             print("WALKIES OVER! Restarting!");
             ownerTargetWaypointIndex = 0;
         }
+        ownerAI.fastWalk = false;
+    }
+
+    public void Win()
+    {
+        Debug.Log("u win");
     }
 }
