@@ -75,7 +75,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4287109846
   m_fontColor: {r: 0.83921576, g: 0.10196079, b: 0.53333336, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -225,6 +225,10 @@ MonoBehaviour:
   interactionSnapDistance: 2
   showRange: 0
   barkAfterwards: 0
+  meowAfterwards: 0
+  meow: {fileID: 8300000, guid: 301b0b35cba6e6a4b84e967279d55963, type: 3}
+  reuseCooldown: 25
+  keepUprightUI: {fileID: 1463201355648209369}
   focusHighlightVisuals: {fileID: 4642995966886889450}
 --- !u!1 &4642995966886889450
 GameObject:
@@ -251,7 +255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4642995966886889450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
