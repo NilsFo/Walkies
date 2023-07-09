@@ -66,7 +66,7 @@ public class DogSnoot : MonoBehaviour
 
     public void RequestBark()
     {
-        if (barkCooldownCurrent <= 0)
+        if (barkCooldownCurrent <= 0 && _gameState.HasGameStartedYet())
         {
             int i = Random.Range(0, barks.Count);
             AudioClip bark = barks[i];

@@ -6,6 +6,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class GameState : MonoBehaviour
 {
@@ -36,7 +44,8 @@ public class GameState : MonoBehaviour
     [Header("Camera")] public CinemachineVirtualCamera virtualCamera;
     public float cameraDistanceDefault = 5f;
     public float cameraDistanceFrenzy = 7f;
-    public float cameraDistanceInitial = 3.5f;
+    public float cameraDistanceFreedom = 10f;
+    public float cameraDistanceInitial = 8f;
     public float zoomSpeed = 2f;
 
     [Header("Bones")] public int bonesCollectedCount = 0;
@@ -44,7 +53,13 @@ public class GameState : MonoBehaviour
 
     [Header("Winning")] public GameObject invisibleWallsHolder;
     public GameObject winTriggerHolder;
-    public bool cutsceneMode = false;
+
+    [Header("StartGame")] public CanvasGroup startGameCanvas;
+    public float startGameCanvasAlphaDesired = 1.0f;
+    public float startGameCanvasFadeSpeed = 2f;
+    public Button startGameBT;
+    public GameObject objectiveBarHolder;
+    public GameObject startGameCameraFollow;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +84,14 @@ public class GameState : MonoBehaviour
         // Updating bones objective
         var bones = FindObjectsOfType<CollectibleBone>();
         bonesCollectedTarget = bones.Length;
+
+        invisibleWallsHolder.SetActive(true);
+        winTriggerHolder.SetActive(false);
+        startGameBT.onClick.AddListener(StartGame);
+
+        player.rb2D.simulated = false;
+        ownerAI.rb2D.simulated = false;
+        virtualCamera.Follow = startGameCameraFollow.transform;
     }
 
     public void StartWalkies()
@@ -80,9 +103,30 @@ public class GameState : MonoBehaviour
     {
     }
 
+    public void StartGame()
+    {
+        startGameCanvasAlphaDesired = 0.0f;
+        player.rb2D.simulated = true;
+        ownerAI.rb2D.simulated = true;
+
+        virtualCamera.Follow = FindObjectOfType<LineConnectionSprite>().gameObject.transform;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        startGameCanvas.alpha = Mathf.MoveTowards(startGameCanvas.alpha, startGameCanvasAlphaDesired,
+            Time.deltaTime * startGameCanvasFadeSpeed);
+        if (startGameCanvas.alpha <= 0)
+        {
+            startGameCanvas.gameObject.SetActive(false);
+            objectiveBarHolder.SetActive(true);
+        }
+        else
+        {
+            objectiveBarHolder.SetActive(false);
+        }
+
         if (IsInFrenzyMode())
         {
             frenzyTimeCurrent -= Time.deltaTime;
@@ -101,19 +145,29 @@ public class GameState : MonoBehaviour
         bonesTF.text = bonesCollectedCount + "/" + bonesCollectedTarget;
     }
 
+    public bool HasGameStartedYet()
+    {
+        return objectiveBarHolder.activeSelf;
+    }
+
     private void LateUpdate()
     {
         float currentOrthographicDistance = virtualCamera.m_Lens.OrthographicSize;
         float desiredOrthographicDistance = cameraDistanceDefault;
 
-        if (cutsceneMode)
+        if (!HasGameStartedYet())
         {
             desiredOrthographicDistance = cameraDistanceInitial;
         }
 
-        if (IsInFrenzyMode() || IsInFreeMode())
+        if (IsInFrenzyMode())
         {
             desiredOrthographicDistance = cameraDistanceFrenzy;
+        }
+
+        if (IsInFreeMode())
+        {
+            desiredOrthographicDistance = cameraDistanceFreedom;
         }
 
         currentOrthographicDistance = Mathf.MoveTowards(currentOrthographicDistance, desiredOrthographicDistance,
@@ -204,8 +258,10 @@ public class GameState : MonoBehaviour
     public void Win()
     {
         Debug.Log("u win");
-        cutsceneMode = true;
         gameOverUI.StartFade();
         musicManager.Play(0);
+
+        invisibleWallsHolder.SetActive(false);
+        winTriggerHolder.SetActive(true);
     }
 }

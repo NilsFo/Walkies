@@ -32,7 +32,7 @@ public class OwnerAI : MonoBehaviour
     private float _dogPullSurpriseTimer = 0.0f;
     private float _dogPullCooldownTimer = 0.0f;
 
-    private Rigidbody2D rb2D;
+    public Rigidbody2D rb2D;
 
     public Animator ownerAnimator;
     private static readonly int VelocityAnim = Animator.StringToHash("velocity");
@@ -41,6 +41,7 @@ public class OwnerAI : MonoBehaviour
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
+        rb2D = GetComponent<Rigidbody2D>();
         dog = _gameState.player;
     }
 
@@ -49,7 +50,6 @@ public class OwnerAI : MonoBehaviour
     {
         currentWalkingState = WalkerMovementState.WalkingHere;
         _lastKnownWalkingState = currentWalkingState;
-        rb2D = GetComponent<Rigidbody2D>();
     }
 
     private bool IsDogAnimationLocked()

@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7343762798072089920
 MonoBehaviour:
@@ -52,16 +52,28 @@ MonoBehaviour:
   player: {fileID: 0}
   playerSnoot: {fileID: 0}
   musicManager: {fileID: 0}
-  debugTF: {fileID: 0}
+  gameOverUI: {fileID: 0}
+  bonesTF: {fileID: 0}
   frenzyTokenThreshold: 4
   frenzyTokens: 0
   frenzySpeedMult: 1.5
   frenzyTime: 10
   frenzyTimeCurrent: 0
   playerMovedDuringFrenzy: 0
+  frenzyCount: 0
   virtualCamera: {fileID: 0}
   cameraDistanceDefault: 6
   cameraDistanceFrenzy: 10
+  cameraDistanceFreedom: 10
+  cameraDistanceInitial: 8
   zoomSpeed: 4
   bonesCollectedCount: 0
   bonesCollectedTarget: 0
+  invisibleWallsHolder: {fileID: 0}
+  winTriggerHolder: {fileID: 0}
+  startGameCanvas: {fileID: 0}
+  startGameCanvasAlphaDesired: 1
+  startGameCanvasFadeSpeed: 2
+  startGameBT: {fileID: 0}
+  objectiveBarHolder: {fileID: 0}
+  startGameCameraFollow: {fileID: 0}
