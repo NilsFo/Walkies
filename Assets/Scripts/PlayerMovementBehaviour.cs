@@ -161,7 +161,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         rb2D.AddForce(moveInput);
         _velocity = rb2D.velocity;
         //movementAnimator.velocity = _velocity;
-        if (_velocity.magnitude > 0.01f)
+        if (_velocity.magnitude > 0.01f && !movementBlocked)
             dogVisuals.transform.rotation =
                 Quaternion.LookRotation(Vector3.forward, _velocity.normalized + 0.2f * moveInput);
         

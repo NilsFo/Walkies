@@ -66,7 +66,7 @@ public class OwnerAI : MonoBehaviour
     void Update()
     {
         // Stop waiting, if released
-        if (!IsDogAnimationLocked() && currentWalkingState == WalkerMovementState.WaitingForDog)
+        if (!IsDogAnimationLocked() && currentWalkingState == WalkerMovementState.WaitingForDog && dog.currentInputState != PlayerMovementBehaviour.PlayerInputState.Free)
         {
             currentWalkingState = WalkerMovementState.WalkingHere;
         }
