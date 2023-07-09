@@ -67,7 +67,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             print("New Dog input state: " + currentInputState);
         }
 
-        rb2D.constraints = RigidbodyConstraints2D.None;
+        rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (currentInputState == PlayerInputState.AnimationLocked)
         {
             rb2D.constraints = RigidbodyConstraints2D.FreezeAll;

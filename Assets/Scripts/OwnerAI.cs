@@ -143,6 +143,8 @@ public class OwnerAI : MonoBehaviour
     private void MovementWalkingHere()
     {
         rb2D.bodyType = RigidbodyType2D.Kinematic;
+        rb2D.velocity = Vector2.zero;
+        rb2D.angularVelocity = 0;
         Vector2 myPos = transform.position;
         Vector2 target = _gameState.ownerPath.CurrentWayPointTarget();
         Vector2 targetDirection = target - myPos;

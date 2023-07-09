@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWalkingState: 0
   speed: 0.4
+  fastWalk: 0
   turnSpeed: 3
   damp: 10
   flailPullForce: 1250
@@ -137,7 +138,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &3738885285403586926
 Animator:
   serializedVersion: 5
