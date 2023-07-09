@@ -185,6 +185,20 @@ public class PlayerMovementBehaviour : MonoBehaviour
         {
             owner.DogStopPull();
         }
+
+        if ((owner.transform.position - transform.position).magnitude > lineLength * 3)
+        {
+            // Emergency reset
+            if (currentInputState == PlayerInputState.InControl)
+            {
+                transform.position = owner.transform.position;
+                rb2D.velocity = Vector2.zero;
+            }
+            else
+            {
+                owner.transform.position = transform.position;
+            }
+        }
     }
 
     public bool LeineStramm()
