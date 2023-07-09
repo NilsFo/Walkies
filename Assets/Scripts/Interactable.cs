@@ -77,7 +77,7 @@ public class Interactable : MonoBehaviour
 
         Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, -8f);
         keepUprightUI.transform.position = pos;
-        Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        Quaternion q = Quaternion.identity;
         keepUprightUI.transform.rotation = q;
 
         if (alreadyInteractedWith)
