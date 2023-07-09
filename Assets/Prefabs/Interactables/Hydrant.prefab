@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: animationPlaying
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1478078451650196334, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: interactionSnapDistance

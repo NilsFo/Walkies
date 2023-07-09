@@ -108,9 +108,18 @@ public class Interactable : MonoBehaviour
         print("Interactions with '" + myType + "' is now: " + _gameState.InteractionsCount[myType]);
 
         float lockTime = AnimationNameToLength(animationPlaying);
+        
         // Play animation
+        Vector2 lookTarget = transform.position;
+        if (animationPlaying == AnimationName.Pee)
+        {
+            Vector2 playerPos = _gameState.player.transform.position;
+            lookTarget = -Vector2.Perpendicular(((Vector2) playerPos - lookTarget)) + playerPos;
+            
+        }
+        
         _gameState.player.PlayLockedAnimation(GetCurrentSnapPoint(),
-            transform.position,
+            lookTarget,
             AnimationNameToID(animationPlaying),
             lockTime);
 
