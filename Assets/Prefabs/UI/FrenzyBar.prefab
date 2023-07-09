@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 175, y: 0}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &2528920576215405075
@@ -97,6 +97,9 @@ MonoBehaviour:
   textfield: {fileID: 4882303972158792466}
   fillImage: {fileID: 6999249891132231533}
   iconImage: {fileID: 7579850045833761094}
+  fillSpeed: 1.1337
+  fillDesired: 0
+  fillCurrent: 0
 --- !u!1001 &1730664220638042210
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ Transform:
   - {fileID: 3720936696428908924}
   - {fileID: 2428390603191163732}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3506852974226341700
 GameObject:
@@ -364,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6972719068418364954, guid: b2bd5068438164440938bf743ddee494, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 139fa747534ac08a7808c0ebb118c1e3, type: 3}
     - target: {fileID: 7833008086911853974, guid: b2bd5068438164440938bf743ddee494, type: 3}
       propertyPath: m_Enabled
       value: 0
