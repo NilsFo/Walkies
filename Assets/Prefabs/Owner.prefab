@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 8943395765708115758}
   - component: {fileID: 3738885285403586926}
   - component: {fileID: 1131554094918046031}
+  - component: {fileID: 7892502978171345869}
+  - component: {fileID: 7265877412313981608}
+  - component: {fileID: 3892921756491630389}
   m_Layer: 0
   m_Name: Owner
   m_TagString: Untagged
@@ -111,6 +114,7 @@ MonoBehaviour:
   dogIsPulling: 0
   dogPullSurpriseTime: 0.5
   dogPullCooldownTime: 3
+  rb2D: {fileID: 0}
   ownerAnimator: {fileID: 3738885285403586926}
 --- !u!50 &8943395765708115758
 Rigidbody2D:
@@ -190,6 +194,54 @@ MonoBehaviour:
   m_Animator: {fileID: 3738885285403586926}
   leftFootProgress: 2
   rightFootProgress: 6
+--- !u!114 &7892502978171345869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537279348880341634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 2726818df6673894cb7eb88e398066d8, type: 3}
+--- !u!114 &7265877412313981608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537279348880341634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 601202686
+--- !u!114 &3892921756491630389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537279348880341634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af7606a074826e478c98edb246b76c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteLibrary: {fileID: 7892502978171345869}
+  SpriteLibraryAssets:
+  - {fileID: 7108339969198208228, guid: 2726818df6673894cb7eb88e398066d8, type: 3}
+  - {fileID: 7108339969198208228, guid: 692859c2d6cb54a42bb1dba9ba88dc49, type: 3}
+  - {fileID: 7108339969198208228, guid: fbc4adc750a49b2439bcc99b54f04eb4, type: 3}
+  - {fileID: 7108339969198208228, guid: 3068200eccc37d34a9c0c960071e3688, type: 3}
 --- !u!1 &3954395681507496821
 GameObject:
   m_ObjectHideFlags: 0

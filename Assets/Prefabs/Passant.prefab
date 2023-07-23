@@ -46,6 +46,9 @@ GameObject:
   - component: {fileID: 4321915558804715263}
   - component: {fileID: 3793474098931977194}
   - component: {fileID: 5535874089144359244}
+  - component: {fileID: 8428071708984085237}
+  - component: {fileID: 9036037431668813570}
+  - component: {fileID: 3057403076356560370}
   m_Layer: 0
   m_Name: ThePassant
   m_TagString: Untagged
@@ -189,6 +192,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8428071708984085237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3506852974226341700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0.003710659
+  m_labelHash: 2.6994296e-24
+  m_SpriteKey: 0
+  m_SpriteHash: 792138092
+--- !u!114 &9036037431668813570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3506852974226341700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 2726818df6673894cb7eb88e398066d8, type: 3}
+--- !u!114 &3057403076356560370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3506852974226341700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af7606a074826e478c98edb246b76c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteLibrary: {fileID: 9036037431668813570}
+  SpriteLibraryAssets:
+  - {fileID: 7108339969198208228, guid: 2726818df6673894cb7eb88e398066d8, type: 3}
+  - {fileID: 7108339969198208228, guid: 692859c2d6cb54a42bb1dba9ba88dc49, type: 3}
+  - {fileID: 7108339969198208228, guid: fbc4adc750a49b2439bcc99b54f04eb4, type: 3}
+  - {fileID: 7108339969198208228, guid: 3068200eccc37d34a9c0c960071e3688, type: 3}
 --- !u!1 &7383159140210729981
 GameObject:
   m_ObjectHideFlags: 0
