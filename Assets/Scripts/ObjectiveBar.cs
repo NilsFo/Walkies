@@ -46,19 +46,19 @@ public class ObjectiveBar : MonoBehaviour
 
         freeColor = freeColorGradient.Evaluate(colorGradientProgress);
 
-        if (_gameState.IsInFrenzyMode())
-        {
-            textfield.text = "";
-            fillDesired = _gameState.GetFrenzyTimeRemainingPercent();
-            fillCurrent = fillDesired;
-            fillImage.color = frenzyDrainGradient.Evaluate(fillCurrent);
-        }
-        else if (_gameState.IsInFreeMode())
+        if (_gameState.IsInFreeMode())
         {
             textfield.text = "!! FREEDOM !!";
             fillImage.color = freeColor;
             fillDesired = 1f;
             fillCurrent = 1;
+        }
+        else if (_gameState.IsInFrenzyMode())
+        {
+            textfield.text = "";
+            fillDesired = _gameState.GetFrenzyTimeRemainingPercent();
+            fillCurrent = fillDesired;
+            fillImage.color = frenzyDrainGradient.Evaluate(fillCurrent);
         }
         else if (_gameState.FrenzyAvailable())
         {

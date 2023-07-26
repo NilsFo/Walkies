@@ -39,6 +39,7 @@ public class GameState : MonoBehaviour
     public float frenzySpeedMult = 2.0f;
 
     public float frenzyTime = 5;
+    public float subsequentialAccumulativeFrenzyTimeSeconds = 3f;
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
     public int frenzyCount = 0;
@@ -230,7 +231,14 @@ public class GameState : MonoBehaviour
     public void OnExitFrenzyMode()
     {
         print("OnFrenzyExit!");
-        musicManager.Play(0);
+        if (!IsInFreeMode())
+        {
+            // Only switch music when not in freedom
+            musicManager.Play(0);
+        }
+
+        // updating time for the next frenzy
+        frenzyTime = frenzyTime + subsequentialAccumulativeFrenzyTimeSeconds;
 
         // Set closest waypoint
         int closestIndex = ownerPath.waypoints.IndexOf(ownerPath.waypoints.OrderBy(waypoint =>
@@ -275,7 +283,9 @@ public class GameState : MonoBehaviour
         {
             player.BreakFree();
         }
-        if (bonesCollectedCount >= bonesCollectedTarget - 5) {
+
+        if (bonesCollectedCount >= bonesCollectedTarget - 5)
+        {
             var kompass = FindObjectOfType<KompassBehaviourScript>();
             kompass.UpdateList(FindObjectsOfType<CollectibleBone>().Where(b => !b.IsDeleted()).ToArray());
         }
