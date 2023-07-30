@@ -33,6 +33,7 @@ public class GameOverUI : MonoBehaviour
     void Update()
     {
         groop.alpha = Mathf.MoveTowards(groop.alpha, alpha_desired, Time.deltaTime * fadeSpeed);
+        playAgainBT.gameObject.SetActive(groop.alpha > 0);
 
         text.text = "Territory marked: " + _gameState.InteractionsCount[Interactable.InteractableType.Tree] + "\n" +
                     "Friends made: " + _gameState.InteractionsCount[Interactable.InteractableType.Friend] + "\n" +
