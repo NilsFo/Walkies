@@ -16,6 +16,8 @@ public class KompassBehaviourScript : MonoBehaviour
     
     [SerializeField] private CollectibleBone[] listOfBoneObj;
     [SerializeField] private GameObject[] listOfBonePointer;
+
+    public bool kompassVisible = true;
     
     private void OnEnable()
     {
@@ -50,7 +52,7 @@ public class KompassBehaviourScript : MonoBehaviour
         {
             CollectibleBone dumb = listOfBoneObj[i].GetComponentInChildren<CollectibleBone>();
             listOfBonePointer[i] = Instantiate(prefabBone, pointerContainer);
-            listOfBonePointer[i].SetActive(true);
+            listOfBonePointer[i].SetActive(kompassVisible);
             
             if (dumb != null)
             {
@@ -69,12 +71,19 @@ public class KompassBehaviourScript : MonoBehaviour
             if (circleCollider2D.OverlapPoint(dumb.transform.position)) {
                 listOfBonePointer[i].SetActive(false);
             } else {
-                listOfBonePointer[i].SetActive(true);
+                listOfBonePointer[i].SetActive(kompassVisible);
             }
             pos.z = -8;
             listOfBonePointer[i].transform.position = pos;
             listOfBonePointer [i].transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector2)(dumb.transform.position - pos));
         }
+    }
+
+    public void SetKompassVisible(bool visible) {
+        foreach (var bone in listOfBonePointer) {
+            bone.SetActive(visible);
+        }
+        kompassVisible = visible;
     }
     
     // Update is called once per frame

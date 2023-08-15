@@ -229,6 +229,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public void ReleaseAnimationLock()
     {
         currentInputState = PlayerInputState.InControl;
+        _gameState.playerSnoot.currentInteractable = null;
         dogAnimator.ResetTrigger(Sniff);
     }
 

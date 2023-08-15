@@ -40,6 +40,7 @@ public class GameState : MonoBehaviour
 
     public float frenzyTime = 5;
     public float subsequentialAccumulativeFrenzyTimeSeconds = 3f;
+    public float maximumAccumulativeFrenzyTimeSeconds = 10f;
     public float frenzyTimeCurrent = 0;
     public bool playerMovedDuringFrenzy = false;
     public int frenzyCount = 0;
@@ -226,6 +227,12 @@ public class GameState : MonoBehaviour
         {
             musicManager.CreateAudioClip(ropePull, transform.position);
         }
+        
+        if (bonesCollectedCount >= bonesCollectedTarget - 5)
+        {
+            var kompass = FindObjectOfType<KompassBehaviourScript>();
+            kompass.SetKompassVisible(true);
+        }
     }
 
     public void OnExitFrenzyMode()
@@ -239,11 +246,15 @@ public class GameState : MonoBehaviour
 
         // updating time for the next frenzy
         frenzyTime = frenzyTime + subsequentialAccumulativeFrenzyTimeSeconds;
+        frenzyTime = Mathf.Min(frenzyTime, maximumAccumulativeFrenzyTimeSeconds);
 
         // Set closest waypoint
         int closestIndex = ownerPath.waypoints.IndexOf(ownerPath.waypoints.OrderBy(waypoint =>
             Vector2.Distance(waypoint.transform.position, ownerAI.transform.position)).FirstOrDefault());
         ownerTargetWaypointIndex = closestIndex;
+        
+        var kompass = FindObjectOfType<KompassBehaviourScript>();
+        kompass.SetKompassVisible(false);
     }
 
     public bool IsInFrenzyMode()
