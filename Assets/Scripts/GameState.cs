@@ -66,6 +66,7 @@ public class GameState : MonoBehaviour
     public float startGameCanvasAlphaDesired = 1.0f;
     public float startGameCanvasFadeSpeed = 2f;
     public Button startGameBT;
+    public Button dragonaBT;
     public GameObject objectiveBarHolder;
     public GameObject startGameCameraFollow;
 
@@ -97,6 +98,7 @@ public class GameState : MonoBehaviour
         invisibleWallsHolder.SetActive(true);
         winTriggerHolder.SetActive(false);
         startGameBT.onClick.AddListener(StartGame);
+        dragonaBT.onClick.AddListener(BrowseDragonaSpotifyURL);
 
         player.rb2D.simulated = false;
         ownerAI.rb2D.simulated = false;
@@ -106,6 +108,19 @@ public class GameState : MonoBehaviour
     public void StartWalkies()
     {
         ownerTargetWaypointIndex = 0;
+    }
+
+    public void BrowseDragonaSpotifyURL()
+    {
+        try
+        {
+            Application.OpenURL("https://open.spotify.com/artist/42x9vvb7JdMnkUHb26Z89Z?si=3ysfJw7JTm6QM_y9LChcXg");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            Debug.LogError("URL open error!");
+        }
     }
 
     public void FinishWalkies()
