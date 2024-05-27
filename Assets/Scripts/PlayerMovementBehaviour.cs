@@ -31,6 +31,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public Vector2 lookDirection => _lookDirection;
     public Vector2 velocity => _velocity;
 
+    private GamepadInputDetector _gamepadInputDetector;
 
     public float lineLength = 5f;
     public float linePullForce = 5f;
@@ -52,6 +53,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         currentInputState = PlayerInputState.InControl;
         _lastKnownInputState = currentInputState;
         _gameState = FindObjectOfType<GameState>();
+        _gamepadInputDetector = FindObjectOfType<GamepadInputDetector>();
         owner = _gameState.ownerAI;
     }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7239473562083172258}
   - component: {fileID: 7343762798072089920}
+  - component: {fileID: 8062669935522371967}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -82,5 +83,31 @@ MonoBehaviour:
   startGameCanvasAlphaDesired: 1
   startGameCanvasFadeSpeed: 2
   startGameBT: {fileID: 0}
+  dragonaBT: {fileID: 0}
   objectiveBarHolder: {fileID: 0}
   startGameCameraFollow: {fileID: 0}
+--- !u!114 &8062669935522371967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922586699293466258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e01960083a9b84fa29e4af08f297c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePad: 0
+  registerMouseMovement: 0
+  registerKeyboardButtons: 1
+  registerMouseClicks: 1
+  registerGamepadAnalogSticks: 1
+  registerGamepadDPad: 1
+  registerGamepadButtons: 1
+  onSwitchToKeyBoard:
+    m_PersistentCalls:
+      m_Calls: []
+  onSwitchToGamePad:
+    m_PersistentCalls:
+      m_Calls: []
