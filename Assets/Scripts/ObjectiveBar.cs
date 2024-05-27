@@ -21,10 +21,12 @@ public class ObjectiveBar : MonoBehaviour
     public Gradient frenzyDrainGradient, freeColorGradient;
     public float colorChangeSpeed;
     private float colorGradientProgress;
+    private GamepadInputDetector _gamepadInputDetector;
 
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
+        _gamepadInputDetector = FindObjectOfType<GamepadInputDetector>();
     }
 
     // Start is called before the first frame update
@@ -62,7 +64,14 @@ public class ObjectiveBar : MonoBehaviour
         }
         else if (_gameState.FrenzyAvailable())
         {
-            textfield.text = "!! SPACEBAR !!";
+            if (_gamepadInputDetector.isGamePad)
+            {
+                textfield.text = "!! RT !!";
+            }
+            else
+            {
+                textfield.text = "!! SPACEBAR !!";
+            }
             fillImage.color = frenzyAvailable;
             fillDesired = 1f;
             fillCurrent = 1;

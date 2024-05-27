@@ -329,6 +329,11 @@ public class GameState : MonoBehaviour
         ownerAI.fastWalk = false;
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void Win()
     {
         if (hasAutoWon)
