@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovementBehaviour : MonoBehaviour
 {
@@ -25,19 +26,18 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
     public float movementCooldown = 0;
 
-    Vector2 _velocity;
-
-    Vector2 _lookDirection = new Vector2(1, 0);
-    public Vector2 lookDirection => _lookDirection;
+    private Vector2 _velocity;
+    private Vector2 _lookDirection = new Vector2(1, 0);
+    public Vector2 LookDirection => _lookDirection;
     public Vector2 velocity => _velocity;
-
-    private GamepadInputDetector _gamepadInputDetector;
 
     public float lineLength = 5f;
     public float linePullForce = 5f;
 
     private GameState _gameState;
-    private OwnerAI owner;
+    private OwnerAI _owner;
+    private GamepadInputDetector _gamepadInputDetector;
+    public AnimationCurve kbmMovementSmoothingCurve;
 
     public Rigidbody2D rb2D;
 
@@ -54,7 +54,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         _lastKnownInputState = currentInputState;
         _gameState = FindObjectOfType<GameState>();
         _gamepadInputDetector = FindObjectOfType<GamepadInputDetector>();
-        owner = _gameState.ownerAI;
+        _owner = _gameState.ownerAI;
     }
 
     // Start is called before the first frame update
@@ -79,7 +79,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         dogAnimator.SetFloat(VelocityAnim, _velocity.magnitude);
 
         // Frenzy Mode?
-        if (Input.GetKeyDown(KeyCode.Space) && currentInputState != PlayerInputState.AnimationLocked)
+        if (FrenzyModeInputRequested() && currentInputState != PlayerInputState.AnimationLocked)
         {
             if (_gameState.FrenzyAvailable())
             {
@@ -103,6 +103,25 @@ public class PlayerMovementBehaviour : MonoBehaviour
         }
     }
 
+    private bool FrenzyModeInputRequested()
+    {
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Gamepad gamepad = Gamepad.current;
+            return gamepad.buttonWest.wasPressedThisFrame ||
+                   gamepad.buttonEast.wasPressedThisFrame ||
+                   gamepad.rightTrigger.wasPressedThisFrame ||
+                   gamepad.leftTrigger.wasPressedThisFrame ||
+                   gamepad.leftShoulder.wasPressedThisFrame ||
+                   gamepad.rightShoulder.wasPressedThisFrame;
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.Space) ||
+                   Input.GetKeyDown(KeyCode.Return);
+        }
+    }
+
     private void FixedUpdate()
     {
         var modSpeed = speed;
@@ -121,40 +140,50 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         float x = 0;
         float y = 0;
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            y += 1;
-            if (_gameState.IsInFrenzyMode())
-            {
-                _gameState.playerMovedDuringFrenzy = true;
-            }
-        }
+        // if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        // {
+        //     y += 1;
+        //     if (_gameState.IsInFrenzyMode())
+        //     {
+        //         _gameState.playerMovedDuringFrenzy = true;
+        //     }
+        // }
 
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            y -= 1;
-            if (_gameState.IsInFrenzyMode())
-            {
-                _gameState.playerMovedDuringFrenzy = true;
-            }
-        }
+        // if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        // {
+        //     y -= 1;
+        //     if (_gameState.IsInFrenzyMode())
+        //     {
+        //         _gameState.playerMovedDuringFrenzy = true;
+        //     }
+        // }
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            x -= 1;
-            if (_gameState.IsInFrenzyMode())
-            {
-                _gameState.playerMovedDuringFrenzy = true;
-            }
-        }
+        // if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        // {
+        //     x -= 1;
+        //     if (_gameState.IsInFrenzyMode())
+        //     {
+        //         _gameState.playerMovedDuringFrenzy = true;
+        //     }
+        // }
 
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        // if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        // {
+        //     x += 1;
+        //     if (_gameState.IsInFrenzyMode())
+        //     {
+        //         _gameState.playerMovedDuringFrenzy = true;
+        //     }
+        // }
+
+        var inputHorizontalRaw = Input.GetAxisRaw("Horizontal");
+        var inputVerticalRaw = Input.GetAxisRaw("Vertical");
+        x = inputHorizontalRaw;
+        y = inputVerticalRaw;
+
+        if (_gameState.IsInFrenzyMode() && (inputHorizontalRaw != 0 || inputVerticalRaw == 0))
         {
-            x += 1;
-            if (_gameState.IsInFrenzyMode())
-            {
-                _gameState.playerMovedDuringFrenzy = true;
-            }
+            _gameState.playerMovedDuringFrenzy = true;
         }
 
         var moveInput = new Vector2(x, y).normalized * modSpeed;
@@ -172,30 +201,30 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
         if (currentInputState != PlayerInputState.Free)
         {
-            var ownerDelta = owner.transform.position - transform.position;
+            var ownerDelta = _owner.transform.position - transform.position;
             if (LeineStramm() && currentInputState != PlayerInputState.Frenzy)
             {
                 // Leine einholen
                 var pullForce = Mathf.Pow(ownerDelta.magnitude - lineLength + 1, 2) * linePullForce;
                 rb2D.AddForce(ownerDelta.normalized * (pullForce * Time.deltaTime));
-                owner.DogPull();
+                _owner.DogPull();
             }
-            else if (owner.dogIsPulling)
+            else if (_owner.dogIsPulling)
             {
-                owner.DogStopPull();
+                _owner.DogStopPull();
             }
 
-            if ((owner.transform.position - transform.position).magnitude > lineLength * 3)
+            if ((_owner.transform.position - transform.position).magnitude > lineLength * 3)
             {
                 // Emergency reset
                 if (currentInputState == PlayerInputState.InControl)
                 {
-                    transform.position = owner.transform.position;
+                    transform.position = _owner.transform.position;
                     rb2D.velocity = Vector2.zero;
                 }
                 else
                 {
-                    owner.transform.position = transform.position;
+                    _owner.transform.position = transform.position;
                 }
             }
         }
@@ -203,7 +232,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
     public bool LeineStramm()
     {
-        var ownerDelta = owner.transform.position - transform.position;
+        var ownerDelta = _owner.transform.position - transform.position;
         return ownerDelta.magnitude > lineLength;
     }
 
@@ -240,7 +269,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         // I want to break free
 
         currentInputState = PlayerInputState.Free;
-        owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
+        _owner.currentWalkingState = OwnerAI.WalkerMovementState.WaitingForDog;
         _gameState.OnEnterFrenzyMode(false, false);
         GetComponentInChildren<LineConnectionSprite>().enabled = false;
         _gameState.musicManager.Play(1);

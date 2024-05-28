@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class DogSnoot : MonoBehaviour
 {
     public Interactable currentInteractable;
     private GameState _gameState;
+    private GamepadInputDetector _gamepadInputDetector;
 
     public List<AudioClip> barks;
     public float barkCooldown = 2f;
@@ -16,6 +18,7 @@ public class DogSnoot : MonoBehaviour
 
     private void Awake()
     {
+        _gamepadInputDetector = FindObjectOfType<GamepadInputDetector>();
         _gameState = FindObjectOfType<GameState>();
     }
 
@@ -36,7 +39,7 @@ public class DogSnoot : MonoBehaviour
 
         barkCooldownCurrent = barkCooldownCurrent - Time.deltaTime * cooldownMult;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (InteractionInputRequested())
         {
             if (currentInteractable != null && !_gameState.IsInFrenzyMode())
             {
@@ -53,6 +56,19 @@ public class DogSnoot : MonoBehaviour
             {
                 RequestBark();
             }
+        }
+    }
+
+    private bool InteractionInputRequested()
+    {
+        if (_gamepadInputDetector.isGamePad)
+        {
+            Gamepad gamepad = Gamepad.current;
+            return gamepad.buttonSouth.wasPressedThisFrame;
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.E);
         }
     }
 
@@ -81,7 +97,8 @@ public class DogSnoot : MonoBehaviour
         currentInteractable.OnInteractedWith();
     }
 
-    private void OnTriggerStay2D(Collider2D col) {
+    private void OnTriggerStay2D(Collider2D col)
+    {
         if (currentInteractable != null)
             return;
         Interactable interactable = col.GetComponent<Interactable>();
